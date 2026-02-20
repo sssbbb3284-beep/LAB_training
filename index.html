@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="ar" dir="ltr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+<title>Lab Training</title>
+
+<style>
+/* =========================================================
+   🎨 الأنماط — بدون أي مربع تعليق
+   ========================================================= */
+
+:root{
+  --bg:#0f172a;
+  --panel:#0a1220;
+  --text:#e5e7eb;
+  --muted:#9ca3af;
+  --accent:#22c55e;
+  --danger:#ef4444;
+  --overlay-bg: rgba(0,0,0,.65);
+  --radius: 14px;
+  --radius-sm: 10px;
+  --maxw: 960px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:"Tahoma","Segoe UI",system-ui,sans-serif;
+  color:var(--text);
+  background:radial-gradient(1400px 900px at 15% -10%, #1f2937 0%, #0f172a 40%, #0b1224 100%) fixed;
+}
+
+.app{min-height:100dvh; display:flex; flex-direction:column; gap:12px; padding:14px;}
+
+header.appbar{
+  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap;
+  gap:10px; max-width:var(--maxw); margin:0 auto;
+  padding:10px 14px; background:linear-gradient(180deg,#0b1220,#0a1322);
+  border:1px solid #1f2937; border-radius:var(--radius);
+  box-shadow:0 8px 24px rgba(0,0,0,.25);
+  position:sticky; top:8px; z-index:50; backdrop-filter:blur(6px);
+}
+
+.pill{
+  background:#0b1220; border:1px solid #243041; border-radius:999px;
+  padding:6px 10px; font-size:13px; color:var(--muted);
+}
+
+.val{font-weight:700; color:#a7f3d0;}
+.btn{
+  appearance:none; border:none; cursor:pointer;
+  font-weight:600; font-size:13px;
+  padding:8px 12px; border-radius:10px;
+  background:#0e1a30; color:#e5e7eb; border:1px solid #1f2937;
+}
+
+.stage{
+  background:#0a1220; border:1px solid #1f2937; border-radius:var(--radius);
+  overflow:hidden; box-shadow:0 12px 32px rgba(0,0,0,.28);
+}
+
+.media-wrap{
+  position:relative; width:100%; aspect-ratio:16/9;
+  background:#0b1220; overflow:hidden;
+}
+.base-media{width:100%; height:100%; object-fit:cover; display:block;}
+
+.overlay-media{
+  position:absolute; inset:0; display:none;
+  align-items:center; justify-content:center;
+  background:var(--overlay-bg); z-index:6;
+}
+.overlay-media.active{display:flex;}
+
+.overlay-close{
+  position:absolute; top:10px; left:10px;
+  background:rgba(0,0,0,.5); border:1px solid #374151; color:white;
+  border-radius:10px; padding:6px 10px; cursor:pointer; z-index:7;
+}
+
+.hotspot{
+  position:absolute; z-index:5; border:none;
+  background:transparent; pointer-events:auto;
+}
+
+.panel{padding:14px; border-top:1px solid #1f2937; background:#0b1324;}
+
+.question{display:none; background:#0b1220; border:1px solid #1f2937;
+          border-radius:12px; padding:14px;}
+.question.active{display:block;}
+
+.opt{
+  display:flex; align-items:flex-start; gap:10px;
+  border:1px solid #223047; background:#091226;
+  padding:10px; border-radius:10px; min-width:220px;
+}
+
+.options{display:flex; flex-wrap:wrap; gap:10px;}
+
+.modal{position:fixed; inset:0; display:none;
+       align-items:center; justify-content:center;
+       background:var(--overlay-bg); z-index:80; padding:14px;}
+.modal.active{display:flex;}
+
+.toast{position:fixed; right:14px; bottom:14px; background:#0b1324;
+       border:1px solid #1f2937; color:white; padding:10px 12px;
+       border-radius:10px; display:none;}
+.toast.show{display:block;}
+</style>
+
+</head>
+<body>
+
+<div class="app">
+
+<header class="appbar">
+  <div class="score">
+    <span class="pill">Points: <span id="scoreVal" class="val">100</span></span>
+    <span class="pill">Remaining of 100: <span id="remainVal" class="val">100</span></span>
+    <span class="pill" id="progressText">OPD 1 — Case 1 of 8</span>
+  </div>
+
+  <div class="right-tools">
+    <button id="fsBtn" class="btn">Full screen ⛶</button>
+  </div>
+</header>
+
+<main>
+<section class="stage">
+
+<div id="mediaWrap" class="media-wrap">
+  <div id="overlay" class="overlay-media">
+    <button id="overlayCloseBtn" class="overlay-close">Close ×</button>
+  </div>
+</div>
+
+<div class="panel">
+
+<div id="questionBox" class="question">
+  <h3 id="qTitle">what the action </h3>
+  <div id="options" class="options"></div>
+
+  <div class="actions" style="margin-top:12px; display:flex; gap:10px;">
+    <button id="submitBtn" class="btn" style="background:#064e3b;border-color:#065f46;color:#d1fae5;">Answer</button>
+    <button id="skipBtn" class="btn">Continue</button>
+  </div>
+
+  
+</div>
+
+</div>
+</section>
+</main>
+</div>
+
+<!-- 🪟 رسالة Hotspot -->
+<div id="msgModal" class="modal">
+  <div class="box" style="background:#0a1220; padding:16px; border-radius:14px;">
+    <h4 id="msgTitle">Message</h4>
+    <p id="msgBody"></p>
+    <div style="display:flex; justify-content:flex-end;">
+      <button id="msgClose" class="btn">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- 🪟 Feedback -->
+<div id="feedbackModal" class="modal">
+  <div class="box" style="background:#0a1220; padding:16px; border-radius:14px;">
+    <h4 id="fbTitle"></h4>
+    <p id="fbBody"></p>
+    <div style="display:flex; justify-content:flex-end;">
+      <button id="fbContinue" class="btn" style="background:#064e3b;">Continue</button>
+    </div>
+  </div>
+</div>
+
+<!-- 🪟 Transition -->
+<div id="sectionModal" class="modal">
+  <div class="box" style="background:#0a1220; padding:16px; border-radius:14px;">
+    <h4 id="sectionTitle"></h4>
+    <p id="sectionBody"></p>
+    <div style="display:flex; justify-content:flex-end;">
+      <button id="sectionContinue" class="btn" style="background:#064e3b;">Continue</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+/* =========================================================
+   ⚙️ منشىء السيناريو — بدون أي مربع تعليق
+   ========================================================= */
+
+function makeScenario({
+  id,
+  baseType='image',
+  overlayType='image',
+  question='what the action ?',
+  choices = [],
+  correctChoiceId,
+  penalty=10,
+  wrongReason='Wrong Answer',
+  overlayHotspots = [],
+  messageHotspots = [],
+  requireOverlay=true,
+  requiredMessageCount=1,
+  baseSrc,
+  overlaySrc
+}){
+
+  return {
+    id,
+    baseMedia:{type:baseType, src:baseSrc},
+    overlayMedia:{type:overlayType, src:overlaySrc},
+    overlayHotspots,
+    messageHotspots,
+    question,
+    choices,
+    correctChoiceId,
+    penalty,
+    wrongReason,
+    gating:{requireOverlay, requiredMessageCount}
+  };
+}
+
+/* =========================================================
+   🟦 تعريف الأقسام — كما كانت (غير معدل محتوى الحالات)
+   ========================================================= */
+
+const SECTIONS = [
+  {
+    title:'Area 1',
+    scenarios:[
+
+      makeScenario({
+        id:'1-1',
+        baseSrc:'case1basic.jpg',
+        overlaySrc:'case1S.jpg',
+        question:'what the action ?',
+        choices:[
+          {id:'a', label:'collect the sample'},
+          {id:'b', label:'collect the sample with comment'},
+          {id:'c', label:'Reschedule for 8-12 hours fasting'}
+        ],
+        correctChoiceId:'c',
+        penalty:8,
+        wrongReason:'Some blood test require specific requirements befor the patient shouls meet before collect such as fasting, medication time, resting, etc. For example: Triglycerides are significatly affected by food intake.',
+        overlayHotspots:[{left:48, top:6, width:19, height:22}],
+        messageHotspots:[
+          {left:92, top:1, width:5, height:10, title:'Hint', body:'Click on the computer and the patient.'},
+          {left:11, top:20, width:35, height:75, title:'info.', body:'The patient ate two hours ago.'}
+        ]
+      }),
+
+      makeScenario({
+        id:'1-2',
+        baseSrc:'case2basic.jpg',
+        overlaySrc:'case2S.jpg',
+        question:'؟',
+        choices:[
+          {id:'accept', label:'.....'},
+          {id:'resched', label:'.....'}
+        ],
+        correctChoiceId:'accept',
+        penalty:8,
+        wrongReason:'.....'
+      }),
+
+      makeScenario({
+        id:'1-3',
+        baseSrc:'case3basic.jpg',
+        overlaySrc:'case3S.jpg',
+        question:'?',
+        choices:[
+          {id:'a', label:'.....'},
+          {id:'b', label:'......'},
+          {id:'c', label:'.......'},
+          {id:'d', label:'.....'}
+        ],
+        correctChoiceId:'c',
+        penalty:12,
+        wrongReason:'.......'
+      }),
+
+      makeScenario({
+        id:'1-4',
+        baseSrc:'case4basic.jpg',
+        overlaySrc:'case4S.jpg',
+        question:'؟',
+        choices:[
+          {id:'go', label:'.......'},
+          {id:'hold', label:'......'}
+        ],
+        correctChoiceId:'hold'
+      }),
+
+      makeScenario({
+        id:'1-5',
+        baseSrc:'case5basic.jpg',
+        overlaySrc:'case5S.jpg',
+        question:'؟',
+        choices:[
+          {id:'collect', label:'.....'},
+          {id:'cancel', label:'......'},
+          {id:'resched', label:'......'}
+        ],
+        correctChoiceId:'collect'
+      }),
+
+      makeScenario({
+        id:'1-6',
+        baseSrc:'case6basic.jpg',
+        overlaySrc:'case6S.jpg',
+        question:'؟',
+        choices:[
+          {id:'collect', label:'......'},
+          {id:'reject', label:'.......'}
+        ],
+        correctChoiceId:'reject'
+      }),
+
+      makeScenario({
+        id:'1-7',
+        baseSrc:'case7basic.jpg',
+        overlaySrc:'case7S.jpg',
+        question:'؟',
+        choices:[
+          {id:'now', label:'......'},
+          {id:'note', label:'....'},
+          {id:'resched', label:'.....'}
+        ],
+        correctChoiceId:'resched'
+      }),
+
+      makeScenario({
+        id:'1-8',
+        baseSrc:'case8basic.jpg',
+        overlaySrc:'case8S.jpg',
+        question:'؟',
+        choices:[
+          {id:'proceed', label:'.....'},
+          {id:'reject', label:'......'},
+          {id:'call', label:'.....'}
+        ],
+        correctChoiceId:'reject'
+      })
+
+    ]
+  }
+];
+
+/* =========================================================
+   🧠 حالة اللعبة
+   ========================================================= */
+
+const state = {
+  total:100, points:100,
+  sectionIndex:0, scenarioIndex:0,
+  overlayOpenedCount:0,
+  messageOpenedSet:new Set(),
+  answered:false
+};
+
+/* =========================================================
+   مراجع DOM
+   ========================================================= */
+
+const scoreVal=document.getElementById('scoreVal');
+const remainVal=document.getElementById('remainVal');
+const progressText=document.getElementById('progressText');
+
+const mediaWrap=document.getElementById('mediaWrap');
+const overlay=document.getElementById('overlay');
+const overlayCloseBtn=document.getElementById('overlayCloseBtn');
+
+const questionBox=document.getElementById('questionBox');
+const qTitle=document.getElementById('qTitle');
+const optionsEl=document.getElementById('options');
+const submitBtn=document.getElementById('submitBtn');
+const skipBtn=document.getElementById('skipBtn');
+
+const msgModal=document.getElementById('msgModal');
+const msgTitle=document.getElementById('msgTitle');
+const msgBody=document.getElementById('msgBody');
+const msgClose=document.getElementById('msgClose');
+
+const feedbackModal=document.getElementById('feedbackModal');
+const fbTitle=document.getElementById('fbTitle');
+const fbBody=document.getElementById('fbBody');
+const fbContinue=document.getElementById('fbContinue');
+
+const sectionModal=document.getElementById('sectionModal');
+const sectionTitle=document.getElementById('sectionTitle');
+const sectionBody=document.getElementById('sectionBody');
+const sectionContinue=document.getElementById('sectionContinue');
+
+const toastEl=document.getElementById('toast');
+
+/* =========================================================
+   أدوات
+   ========================================================= */
+
+function showToast(msg){ toastEl.textContent=msg; toastEl.classList.add('show'); setTimeout(()=>toastEl.classList.remove('show'),1800); }
+
+function getCurrent(){
+  const section=SECTIONS[state.sectionIndex];
+  const scenario=section.scenarios[state.scenarioIndex];
+  return {section, scenario};
+}
+
+function updateHeader(){
+  scoreVal.textContent=state.points;
+  remainVal.textContent=state.points;
+  let s=state.sectionIndex+1, sc=state.scenarioIndex+1;
+  // توحيد النص الإنجليزي في شريط التقدم
+  progressText.textContent=`OPD ${s} — Case ${sc} of ${SECTIONS[state.sectionIndex].scenarios.length}`;
+}
+
+/* =========================================================
+   إنشاء الوسائط
+   ========================================================= */
+
+function createMediaEl({type='image',src}){
+  let el = document.createElement(type==='video'?'video':'img');
+  el.src=src;
+  el.className='base-media';
+  if(type==='video') el.controls=true;
+  return el;
+}
+
+function createOverlayMediaEl({type='image',src}){
+  let el = document.createElement(type==='video'?'video':'img');
+  el.src=src;
+  if(type==='video') el.controls=true;
+  return el;
+}
+
+/* =========================================================
+   تحميل السيناريو
+   ========================================================= */
+
+function clearMedia(){
+  [...mediaWrap.children].forEach(ch=>{ if(ch!==overlay) ch.remove(); });
+  [...overlay.children].forEach(ch=>{ if(ch!==overlayCloseBtn) ch.remove(); });
+  overlay.classList.remove('active');
+  mediaWrap.classList.remove('dimmed');
+}
+
+function setOverlay(open,spec){
+  if(open){
+    if(!overlay.querySelector('img,video')){
+      overlay.insertBefore(createOverlayMediaEl(spec), overlayCloseBtn.nextSibling);
+    }
+    overlay.classList.add('active');
+    mediaWrap.classList.add('dimmed');
+    state.overlayOpenedCount++;
+    tryShowQuestion();
+  }else{
+    overlay.classList.remove('active');
+    mediaWrap.classList.remove('dimmed');
+  }
+}
+
+function makeHotspot({left,top,width,height}){
+  const hs=document.createElement('button');
+  hs.className='hotspot';
+  hs.style.left=left+'%'; hs.style.top=top+'%';
+  hs.style.width=width+'%'; hs.style.height=height+'%';
+  return hs;
+}
+
+function openMessageModal(idx,title,body){
+  msgTitle.textContent=title;
+  msgBody.textContent=body;
+  msgModal.classList.add('active');
+  state.messageOpenedSet.add(idx);
+  tryShowQuestion();
+}
+
+function tryShowQuestion(){
+  const {scenario}=getCurrent();
+  const needOverlay=scenario.gating.requireOverlay;
+  const needMsg=scenario.gating.requiredMessageCount;
+  const okOverlay = !needOverlay || state.overlayOpenedCount>=1;
+  const okMsg = state.messageOpenedSet.size>=needMsg;
+  if(okOverlay && okMsg) questionBox.classList.add('active');
+}
+
+function loadScenario(){
+  state.overlayOpenedCount=0;
+  state.messageOpenedSet.clear();
+  state.answered=false;
+
+  questionBox.classList.remove('active');
+
+  clearMedia();
+
+  const {scenario}=getCurrent();
+  updateHeader();
+
+  mediaWrap.insertBefore(createMediaEl(scenario.baseMedia), overlay);
+
+  scenario.overlayHotspots.forEach(h=>{
+    const hs=makeHotspot(h);
+    hs.addEventListener('click',()=>setOverlay(!overlay.classList.contains('active'), scenario.overlayMedia));
+    mediaWrap.appendChild(hs);
+  });
+
+  scenario.messageHotspots.forEach((m,i)=>{
+    const hs=makeHotspot(m);
+    hs.addEventListener('click',()=>openMessageModal(i,m.title,m.body));
+    mediaWrap.appendChild(hs);
+  });
+
+  qTitle.textContent=scenario.question;
+  renderOptions(scenario.choices);
+}
+
+function renderOptions(choices){
+  optionsEl.innerHTML='';
+  choices.forEach(ch=>{
+    const wrap=document.createElement('div');
+    wrap.className='opt';
+    const id=`opt_${ch.id}`;
+    wrap.innerHTML=`
+      <input type="radio" name="answer" id="${id}" value="${ch.id}">
+      <label for="${id}">${ch.label}</label>
+    `;
+    optionsEl.appendChild(wrap);
+  });
+}
+
+function checkAnswer(){
+  const {scenario}=getCurrent();
+  const sel=document.querySelector('input[name="answer"]:checked');
+  if(!sel){ showToast('Choose the answer first'); return; }
+
+  let correct = sel.value===scenario.correctChoiceId;
+
+  if(correct){
+    fbTitle.textContent='Correct ✔️';
+    fbBody.textContent='Well done.';
+  }else{
+    state.points = Math.max(0, state.points - scenario.penalty);
+    fbTitle.textContent='Incorrect ✖️';
+    fbBody.textContent=scenario.wrongReason + `\n\n...discount ${scenario.penalty} Points.`;
+  }
+
+  state.answered=true;
+  updateHeader();
+  feedbackModal.classList.add('active');
+}
+
+function goNext(){
+  const sec=SECTIONS[state.sectionIndex];
+  if(state.scenarioIndex < sec.scenarios.length-1){
+    state.scenarioIndex++;
+    loadScenario();
+  }else{
+    sectionTitle.textContent=`OPD ${sec.title} completed`;
+    sectionBody.textContent='Moving to the next OPD...';
+    sectionModal.classList.add('active');
+  }
+}
+
+/* =========================================================
+   الأحداث
+   ========================================================= */
+
+overlayCloseBtn.addEventListener('click',()=>setOverlay(false));
+msgClose.addEventListener('click',()=>msgModal.classList.remove('active'));
+feedbackModal.addEventListener('click',e=>{ if(e.target===feedbackModal) feedbackModal.classList.remove('active'); });
+fbContinue.addEventListener('click',()=>{ feedbackModal.classList.remove('active'); goNext(); });
+
+sectionContinue.addEventListener('click',()=>{
+  sectionModal.classList.remove('active');
+  state.sectionIndex++;
+  state.scenarioIndex=0;
+  if(state.sectionIndex >= SECTIONS.length){
+    showToast('The End');
+    return;
+  }
+  loadScenario();
+});
+
+submitBtn.addEventListener('click',()=>{
+  if(!questionBox.classList.contains('active')){
+    showToast('You should see the details');
+    return;
+  }
+  if(state.answered){
+    showToast('Click Continue.');
+    return;
+  }
+  checkAnswer();
+});
+
+skipBtn.addEventListener('click',()=>{
+  if(!questionBox.classList.contains('active')){
+    showToast('The procedures must be completed');
+    return;
+  }
+  if(!state.answered){
+    showToast('Choose the answer first');
+    return;
+  }
+  goNext();
+});
+
+/* Fullscreen */
+document.getElementById('fsBtn').addEventListener('click', async()=>{
+  const root=document.documentElement;
+  try{
+    if(!document.fullscreenElement){
+      await root.requestFullscreen();
+      fsBtn.textContent='Exit full screen ⤢';
+    }else{
+      await document.exitFullscreen();
+      fsBtn.textContent='Full screen ⛶';
+    }
+  }catch{}
+});
+
+/* Start */
+loadScenario();
+
+</script>
+
+</body>
+</html>
