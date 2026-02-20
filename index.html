@@ -6,10 +6,6 @@
 <title>Lab Training</title>
 
 <style>
-/* =========================================================
-    الأنماط
-   ========================================================= */
-
 :root{
   --bg:#0f172a;
   --panel:#0a1220;
@@ -20,45 +16,48 @@
   --overlay-bg: rgba(0,0,0,.65);
   --radius: 14px;
   --radius-sm: 10px;
-  --maxw: 960px;
+  --maxw: 100%;   
 }
 
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
+*{box-sizing:border-box;}
+html,body{
+  height:100%;
+  width:100%;
   margin:0;
+  padding:0;
+  overflow-x:hidden;
   font-family:"Tahoma","Segoe UI",system-ui,sans-serif;
   color:var(--text);
   background:radial-gradient(1400px 900px at 15% -10%, #1f2937 0%, #0f172a 40%, #0b1224 100%) fixed;
 }
 
-.app{min-height:100dvh; display:flex; flex-direction:column; gap:12px; padding:14px;}
+.app{
+  width:100%;
+  max-width:100%;
+  min-height:100vh;
+  padding:10px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
 
 header.appbar{
-  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap;
-  gap:10px; max-width:var(--maxw); margin:0 auto;
-  padding:10px 14px; background:linear-gradient(180deg,#0b1220,#0a1322);
-  border:1px solid #1f2937; border-radius:var(--radius);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:8px;
+  width:100%;
+  max-width:100%;
+  padding:10px 14px;
+  background:linear-gradient(180deg,#0b1220,#0a1322);
+  border:1px solid #1f2937;
+  border-radius:var(--radius);
   box-shadow:0 8px 24px rgba(0,0,0,.25);
-  position:sticky; top:8px; z-index:50; backdrop-filter:blur(6px);
-}
-
-.pill{
-  background:#0b1220; border:1px solid #243041; border-radius:999px;
-  padding:6px 10px; font-size:13px; color:var(--muted);
-}
-
-.val{font-weight:700; color:#a7f3d0;}
-.btn{
-  appearance:none; border:none; cursor:pointer;
-  font-weight:600; font-size:13px;
-  padding:8px 12px; border-radius:10px;
-  background:#0e1a30; color:#e5e7eb; border:1px solid #1f2937;
-}
-
-.stage{
-  background:#0a1220; border:1px solid #1f2937; border-radius:var(--radius);
-  overflow:hidden; box-shadow:0 12px 32px rgba(0,0,0,.28);
+  position:sticky;
+  top:8px;
+  z-index:50;
+  backdrop-filter:blur(6px);
 }
 
 .media-wrap{
@@ -70,48 +69,119 @@ header.appbar{
   overflow:hidden;
 }
 
-.base-media, .overlay-media img, .overlay-media video {
+.base-media,
+.overlay-media img,
+.overlay-media video {
   width:100%;
   height:auto;
-  max-height:70vh;  
+  max-height:72vh;
   object-fit:contain;
+  display:block;
+}
+
+.panel{
+  padding:14px;
+  border-top:1px solid #1f2937;
+  background:#0b1324;
+}
+
+.hotspot{
+  position:absolute;
+  border:none;
+  background:transparent;
+  z-index:5;
+  cursor:pointer;
+}
+
+/* Overlay */
+.overlay-media{
+  position:absolute;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:var(--overlay-bg);
+  z-index:6;
 }
 .overlay-media.active{display:flex;}
 
 .overlay-close{
-  position:absolute; top:10px; left:10px;
-  background:rgba(0,0,0,.5); border:1px solid #374151; color:white;
-  border-radius:10px; padding:6px 10px; cursor:pointer; z-index:7;
+  position:absolute;
+  top:10px;
+  left:10px;
+  background:rgba(0,0,0,.5);
+  border:1px solid #374151;
+  color:white;
+  border-radius:10px;
+  padding:6px 10px;
+  cursor:pointer;
+  z-index:7;
 }
 
-.hotspot{
-  position:absolute; z-index:5; border:none;
-  background:transparent; pointer-events:auto;
+/* السؤال */
+.question{
+  display:none;
+  background:#0b1220;
+  border:1px solid #1f2937;
+  border-radius:12px;
+  padding:14px;
 }
-
-.panel{padding:14px; border-top:1px solid #1f2937; background:#0b1324;}
-
-.question{display:none; background:#0b1220; border:1px solid #1f2937;
-          border-radius:12px; padding:14px;}
 .question.active{display:block;}
 
-.opt{
-  display:flex; align-items:flex-start; gap:10px;
-  border:1px solid #223047; background:#091226;
-  padding:10px; border-radius:10px; min-width:220px;
+.options{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
 }
 
-.options{display:flex; flex-wrap:wrap; gap:10px;}
+.opt{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  border:1px solid #223047;
+  background:#091226;
+  padding:10px;
+  border-radius:10px;
+}
 
-.modal{position:fixed; inset:0; display:none;
-       align-items:center; justify-content:center;
-       background:var(--overlay-bg); z-index:80; padding:14px;}
+/* المودال */
+.modal{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:var(--overlay-bg);
+  z-index:80;
+  padding:14px;
+}
 .modal.active{display:flex;}
 
-.toast{position:fixed; right:14px; bottom:14px; background:#0b1324;
-       border:1px solid #1f2937; color:white; padding:10px 12px;
-       border-radius:10px; display:none;}
+.toast{
+  position:fixed;
+  right:14px;
+  bottom:14px;
+  background:#0b1324;
+  border:1px solid #1f2937;
+  color:white;
+  padding:10px 12px;
+  border-radius:10px;
+  display:none;
+}
 .toast.show{display:block;}
+
+.btn{
+  appearance:none;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  font-size:13px;
+  padding:8px 12px;
+  border-radius:10px;
+  background:#0e1a30;
+  color:#e5e7eb;
+  border:1px solid #1f2937;
+}
 </style>
 
 </head>
@@ -636,3 +706,4 @@ loadScenario();
 </body>
 
 </html>
+
