@@ -16,175 +16,102 @@
   --overlay-bg: rgba(0,0,0,.65);
   --radius: 14px;
   --radius-sm: 10px;
-  --maxw: 100%;
+  --maxw: 960px;
+  --safe-top: env(safe-area-inset-top);
+  --safe-bottom: env(safe-area-inset-bottom);
 }
 
-*{box-sizing:border-box;}
-html,body{
-  height:100%;
-  width:100%;
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
   margin:0;
-  padding:0;
-  overflow-x:hidden;
   font-family:"Tahoma","Segoe UI",system-ui,sans-serif;
   color:var(--text);
   background:radial-gradient(1400px 900px at 15% -10%, #1f2937 0%, #0f172a 40%, #0b1224 100%) fixed;
 }
 
-.app{
-  width:100%;
-  max-width:100%;
-  min-height:100vh;
-  padding:10px;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
+.app{min-height:100dvh; display:flex; flex-direction:column; gap:12px; padding:14px; padding-top:calc(14px + var(--safe-top)); padding-bottom:calc(14px + var(--safe-bottom));}
 
 header.appbar{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  gap:8px;
-  width:100%;
-  max-width:100%;
-  padding:10px 14px;
-  background:linear-gradient(180deg,#0b1220,#0a1322);
-  border:1px solid #1f2937;
-  border-radius:var(--radius);
+  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap;
+  gap:10px; max-width:var(--maxw); margin:0 auto;
+  padding:10px 14px; background:linear-gradient(180deg,#0b1220,#0a1322);
+  border:1px solid #1f2937; border-radius:var(--radius);
   box-shadow:0 8px 24px rgba(0,0,0,.25);
-  position:sticky;
-  top:8px;
-  z-index:50;
-  backdrop-filter:blur(6px);
+  position:sticky; top:8px; z-index:50; backdrop-filter:blur(6px);
+}
+
+.pill{
+  background:#0b1220; border:1px solid #243041; border-radius:999px;
+  padding:6px 10px; font-size:13px; color:var(--muted);
+}
+
+.val{font-weight:700; color:#a7f3d0;}
+.btn{
+  appearance:none; border:none; cursor:pointer;
+  font-weight:600; font-size:13px;
+  padding:8px 12px; border-radius:10px;
+  background:#0e1a30; color:#e5e7eb; border:1px solid #1f2937;
+}
+
+.stage{
+  background:#0a1220; border:1px solid #1f2937; border-radius:var(--radius);
+  overflow:hidden; box-shadow:0 12px 32px rgba(0,0,0,.28);
+  max-width:var(--maxw); margin:0 auto; width:100%;
 }
 
 .media-wrap{
-  position:relative;
-  width:100%;
-  aspect-ratio: 788 / 457;
-  background:#0b1220;
-  overflow:hidden;
+  position:relative; width:100%;
+  /* إزالة نسبة الأبعاد حتى نتحكم بالارتفاع برمجيًا */
+  /* aspect-ratio:16/9; */
+  background:#0b1220; overflow:hidden;
 }
+.base-media{width:100%; height:100%; object-fit:contain; display:block;}
+.overlay-media{
+  position:absolute; inset:0; display:none;
+  align-items:center; justify-content:center;
+  background:var(--overlay-bg); z-index:6;
+}
+.overlay-media.active{display:flex;}
+.overlay-media img, .overlay-media video{width:100%; height:100%; object-fit:contain;}
 
-.base-media,
-.overlay-media img,
-.overlay-media video {
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  display:block;
+.overlay-close{
+  position:absolute; top:10px; left:10px;
+  background:rgba(0,0,0,.5); border:1px solid #374151; color:white;
+  border-radius:10px; padding:6px 10px; cursor:pointer; z-index:7;
 }
 
 .hotspot{
-  position:absolute;
-  border:none;
-  background:transparent;
-  z-index:5;
-  cursor:pointer;
+  position:absolute; z-index:5; border:none;
+  background:transparent; pointer-events:auto;
 }
 
-.overlay-media{
-  position:absolute;
-  inset:0;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  background:var(--overlay-bg);
-  z-index:6;
-}
+.panel{padding:14px; border-top:1px solid #1f2937; background:#0b1324;}
 
-.overlay-media.active{display:flex;}
-
-.overlay-close{
-  position:absolute;
-  top:10px;
-  left:10px;
-  background:rgba(0,0,0,.5);
-  border:1px solid #374151;
-  color:white;
-  border-radius:10px;
-  padding:6px 10px;
-  cursor:pointer;
-  z-index:7;
-}
-
-.panel{
-  padding:14px;
-  border-top:1px solid #1f2937;
-  background:#0b1324;
-}
-
-.question{
-  display:none;
-  background:#0b1220;
-  border:1px solid #1f2937;
-  border-radius:12px;
-  padding:14px;
-}
-
+.question{display:none; background:#0b1220; border:1px solid #1f2937;
+          border-radius:12px; padding:14px;}
 .question.active{display:block;}
 
-.options{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
 .opt{
-  display:flex;
-  align-items:flex-start;
-  gap:10px;
-  border:1px solid #223047;
-  background:#091226;
-  padding:10px;
-  border-radius:10px;
+  display:flex; align-items:flex-start; gap:10px;
+  border:1px solid #223047; background:#091226;
+  padding:10px; border-radius:10px; min-width:220px;
 }
 
-.modal{
-  position:fixed;
-  inset:0;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  background:var(--overlay-bg);
-  z-index:80;
-  padding:14px;
-}
+.options{display:flex; flex-wrap:wrap; gap:10px;}
 
+.modal{position:fixed; inset:0; display:none;
+       align-items:center; justify-content:center;
+       background:var(--overlay-bg); z-index:80; padding:14px;}
 .modal.active{display:flex;}
 
-.toast{
-  position:fixed;
-  right:14px;
-  bottom:14px;
-  background:#0b1324;
-  border:1px solid #1f2937;
-  color:white;
-  padding:10px 12px;
-  border-radius:10px;
-  display:none;
-}
-
+.toast{position:fixed; right:14px; bottom:14px; background:#0b1324;
+       border:1px solid #1f2937; color:white; padding:10px 12px;
+       border-radius:10px; display:none;}
 .toast.show{display:block;}
-
-.btn{
-  appearance:none;
-  border:none;
-  cursor:pointer;
-  font-weight:600;
-  font-size:13px;
-  padding:8px 12px;
-  border-radius:10px;
-  background:#0e1a30;
-  color:#e5e7eb;
-  border:1px solid #1f2937;
-}
 </style>
 
 </head>
-
 <body>
 
 <div class="app">
@@ -213,14 +140,13 @@ header.appbar{
 <div class="panel">
 
 <div id="questionBox" class="question">
-  <h3 id="qTitle">what the action</h3>
+  <h3 id="qTitle">what the action </h3>
   <div id="options" class="options"></div>
 
   <div class="actions" style="margin-top:12px; display:flex; gap:10px;">
     <button id="submitBtn" class="btn" style="background:#064e3b;border-color:#065f46;color:#d1fae5;">Answer</button>
     <button id="skipBtn" class="btn">Continue</button>
   </div>
-
 </div>
 
 </div>
@@ -228,7 +154,6 @@ header.appbar{
 </main>
 </div>
 
-<!-- Modal: Messages -->
 <div id="msgModal" class="modal">
   <div class="box" style="background:#0a1220; padding:16px; border-radius:14px;">
     <h4 id="msgTitle">Message</h4>
@@ -239,7 +164,6 @@ header.appbar{
   </div>
 </div>
 
-<!-- Modal: Feedback -->
 <div id="feedbackModal" class="modal">
   <div class="box" style="background:#0a1220; padding:16px; border-radius:14px;">
     <h4 id="fbTitle"></h4>
@@ -250,7 +174,6 @@ header.appbar{
   </div>
 </div>
 
-<!-- Modal: Section transition -->
 <div id="sectionModal" class="modal">
   <div class="box" style="background:#0a1220; padding:16px; border-radius:14px;">
     <h4 id="sectionTitle"></h4>
@@ -263,12 +186,9 @@ header.appbar{
 
 <div id="toast" class="toast"></div>
 
-
-
 <script>
-/* =========================================================
-    منشىء السيناريو
-   ========================================================= */
+
+
 function makeScenario({
   id,
   baseType='image',
@@ -301,6 +221,7 @@ function makeScenario({
 }
 
 
+
 const SECTIONS = [
   {
     title:'Area 1',
@@ -318,16 +239,105 @@ const SECTIONS = [
         ],
         correctChoiceId:'c',
         penalty:8,
-        wrongReason:'Some blood test require specific requirements before the patient should meet before collect such as fasting, medication time, resting, etc. For example: Triglycerides are significantly affected by food intake',
-        
-        overlayHotspots:[
-          { left:55, top:8, width:27, height:35 }
-        ],
-
+        wrongReason:'Some blood test require specific requirements befor the patient shouls meet before collect such as fasting, medication time, resting, etc. For example: Triglycerides are significatly affected by food intake.',
+        overlayHotspots:[{left:48, top:6, width:19, height:22}],
         messageHotspots:[
-          { left:90, top:2, width:8, height:12, title:'Hint', body:'Click on the computer and the patient.' },
-          { left:5, top:18, width:40, height:75, title:'info.', body:'The patient ate two hours ago.' }
+          {left:92, top:1, width:5, height:10, title:'Hint', body:'Click on the computer and the patient.'},
+          {left:11, top:20, width:35, height:75, title:'info.', body:'The patient ate two hours ago.'}
         ]
+      }),
+
+      makeScenario({
+        id:'1-2',
+        baseSrc:'case2basic.jpg',
+        overlaySrc:'case2S.jpg',
+        question:'؟',
+        choices:[
+          {id:'accept', label:'.....'},
+          {id:'resched', label:'.....'}
+        ],
+        correctChoiceId:'accept',
+        penalty:8,
+        wrongReason:'.....'
+      }),
+
+      makeScenario({
+        id:'1-3',
+        baseSrc:'case3basic.jpg',
+        overlaySrc:'case3S.jpg',
+        question:'?',
+        choices:[
+          {id:'a', label:'.....'},
+          {id:'b', label:'......'},
+          {id:'c', label:'.......'},
+          {id:'d', label:'.....'}
+        ],
+        correctChoiceId:'c',
+        penalty:12,
+        wrongReason:'.......'
+      }),
+
+      makeScenario({
+        id:'1-4',
+        baseSrc:'case4basic.jpg',
+        overlaySrc:'case4S.jpg',
+        question:'؟',
+        choices:[
+          {id:'go', label:'.......'},
+          {id:'hold', label:'......'}
+        ],
+        correctChoiceId:'hold'
+      }),
+
+      makeScenario({
+        id:'1-5',
+        baseSrc:'case5basic.jpg',
+        overlaySrc:'case5S.jpg',
+        question:'؟',
+        choices:[
+          {id:'collect', label:'.....'},
+          {id:'cancel', label:'......'},
+          {id:'resched', label:'......'}
+        ],
+        correctChoiceId:'collect'
+      }),
+
+      makeScenario({
+        id:'1-6',
+        baseSrc:'case6basic.jpg',
+        overlaySrc:'case6S.jpg',
+        question:'؟',
+        choices:[
+          {id:'collect', label:'......'},
+          {id:'reject', label:'.......'}
+        ],
+        correctChoiceId:'reject'
+      }),
+
+      makeScenario({
+        id:'1-7',
+        baseSrc:'case7basic.jpg',
+        overlaySrc:'case7S.jpg',
+        question:'؟',
+        choices:[
+          {id:'now', label:'......'},
+          {id:'note', label:'....'},
+          {id:'resched', label:'.....'}
+        ],
+        correctChoiceId:'resched'
+      }),
+
+      makeScenario({
+        id:'1-8',
+        baseSrc:'case8basic.jpg',
+        overlaySrc:'case8S.jpg',
+        question:'؟',
+        choices:[
+          {id:'proceed', label:'.....'},
+          {id:'reject', label:'......'},
+          {id:'call', label:'.....'}
+        ],
+        correctChoiceId:'reject'
       })
 
     ]
@@ -343,6 +353,8 @@ const state = {
   messageOpenedSet:new Set(),
   answered:false
 };
+
+
 
 const scoreVal=document.getElementById('scoreVal');
 const remainVal=document.getElementById('remainVal');
@@ -375,11 +387,9 @@ const sectionContinue=document.getElementById('sectionContinue');
 
 const toastEl=document.getElementById('toast');
 
-function showToast(msg){
-  toastEl.textContent=msg;
-  toastEl.classList.add('show');
-  setTimeout(()=>toastEl.classList.remove('show'),1800);
-}
+
+
+function showToast(msg){ toastEl.textContent=msg; toastEl.classList.add('show'); setTimeout(()=>toastEl.classList.remove('show'),1800); }
 
 function getCurrent(){
   const section=SECTIONS[state.sectionIndex];
@@ -394,8 +404,36 @@ function updateHeader(){
   progressText.textContent=`OPD ${s} — Case ${sc} of ${SECTIONS[state.sectionIndex].scenarios.length}`;
 }
 
+function getViewportHeight() {
+  if (window.visualViewport && typeof window.visualViewport.height === 'number') {
+    return Math.round(window.visualViewport.height);
+  }
+  return window.innerHeight || document.documentElement.clientHeight || 0;
+}
+function setMediaWrapHeight() {
+  const header = document.querySelector('header.appbar');
+  const vpH = getViewportHeight();
+  const headerH = header ? Math.round(header.getBoundingClientRect().height) : 0;
+  const appPadding = 28; 
+  const gapBetween = 12; 
+  let available = vpH - headerH - appPadding - gapBetween;
+  available = Math.max(280, available);
+  if (mediaWrap) mediaWrap.style.height = available + 'px';
+}
+function bindViewportResizeHandlers() {
+  const r = () => { setMediaWrapHeight(); };
+  window.addEventListener('resize', r, { passive:true });
+  window.addEventListener('orientationchange', () => setTimeout(r,150), { passive:true });
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', r, { passive:true });
+    window.visualViewport.addEventListener('scroll', r, { passive:true });
+  }
+}
+
+
+
 function createMediaEl({type='image',src}){
-  let el=document.createElement(type==='video'?'video':'img');
+  let el = document.createElement(type==='video'?'video':'img');
   el.src=src;
   el.className='base-media';
   if(type==='video') el.controls=true;
@@ -403,16 +441,19 @@ function createMediaEl({type='image',src}){
 }
 
 function createOverlayMediaEl({type='image',src}){
-  let el=document.createElement(type==='video'?'video':'img');
+  let el = document.createElement(type==='video'?'video':'img');
   el.src=src;
   if(type==='video') el.controls=true;
   return el;
 }
 
+
+
 function clearMedia(){
   [...mediaWrap.children].forEach(ch=>{ if(ch!==overlay) ch.remove(); });
   [...overlay.children].forEach(ch=>{ if(ch!==overlayCloseBtn) ch.remove(); });
   overlay.classList.remove('active');
+  mediaWrap.classList.remove('dimmed');
 }
 
 function setOverlay(open,spec){
@@ -421,20 +462,20 @@ function setOverlay(open,spec){
       overlay.insertBefore(createOverlayMediaEl(spec), overlayCloseBtn.nextSibling);
     }
     overlay.classList.add('active');
+    mediaWrap.classList.add('dimmed');
     state.overlayOpenedCount++;
     tryShowQuestion();
   }else{
     overlay.classList.remove('active');
+    mediaWrap.classList.remove('dimmed');
   }
 }
 
 function makeHotspot({left,top,width,height}){
   const hs=document.createElement('button');
   hs.className='hotspot';
-  hs.style.left=left+'%';
-  hs.style.top=top+'%';
-  hs.style.width=width+'%';
-  hs.style.height=height+'%';
+  hs.style.left=left+'%'; hs.style.top=top+'%';
+  hs.style.width=width+'%'; hs.style.height=height+'%';
   return hs;
 }
 
@@ -446,21 +487,38 @@ function openMessageModal(idx,title,body){
   tryShowQuestion();
 }
 
+function scrollQuestionIntoViewSmooth() {
+  if (questionBox && questionBox.classList.contains('active')) {
+    questionBox.scrollIntoView({ behavior:'smooth', block:'start' });
+  } else {
+    const stage = document.querySelector('.stage');
+    if (stage) stage.scrollIntoView({ behavior:'smooth', block:'end' });
+  }
+}
+
 function tryShowQuestion(){
   const {scenario}=getCurrent();
   const needOverlay=scenario.gating.requireOverlay;
   const needMsg=scenario.gating.requiredMessageCount;
   const okOverlay = !needOverlay || state.overlayOpenedCount>=1;
   const okMsg = state.messageOpenedSet.size>=needMsg;
-  if(okOverlay && okMsg) questionBox.classList.add('active');
+  if(okOverlay && okMsg){
+    const wasInactive = !questionBox.classList.contains('active');
+    questionBox.classList.add('active');
+    if (wasInactive) {
+      setTimeout(scrollQuestionIntoViewSmooth, 60);
+    }
+  }
 }
 
 function loadScenario(){
+  setMediaWrapHeight(); 
   state.overlayOpenedCount=0;
   state.messageOpenedSet.clear();
   state.answered=false;
 
   questionBox.classList.remove('active');
+
   clearMedia();
 
   const {scenario}=getCurrent();
@@ -509,7 +567,7 @@ function checkAnswer(){
     fbTitle.textContent='Correct ✔️';
     fbBody.textContent='Well done.';
   }else{
-    state.points=Math.max(0, state.points - scenario.penalty);
+    state.points = Math.max(0, state.points - scenario.penalty);
     fbTitle.textContent='Incorrect ✖️';
     fbBody.textContent=scenario.wrongReason + `\n\n...discount ${scenario.penalty} Points.`;
   }
@@ -531,19 +589,20 @@ function goNext(){
   }
 }
 
+/* =========================================================
+   الأحداث
+   ========================================================= */
+
 overlayCloseBtn.addEventListener('click',()=>setOverlay(false));
 msgClose.addEventListener('click',()=>msgModal.classList.remove('active'));
-
-fbContinue.addEventListener('click',()=>{
-  feedbackModal.classList.remove('active');
-  goNext();
-});
+feedbackModal.addEventListener('click',e=>{ if(e.target===feedbackModal) feedbackModal.classList.remove('active'); });
+fbContinue.addEventListener('click',()=>{ feedbackModal.classList.remove('active'); goNext(); });
 
 sectionContinue.addEventListener('click',()=>{
   sectionModal.classList.remove('active');
   state.sectionIndex++;
   state.scenarioIndex=0;
-  if(state.sectionIndex>=SECTIONS.length){
+  if(state.sectionIndex >= SECTIONS.length){
     showToast('The End');
     return;
   }
@@ -589,23 +648,10 @@ document.getElementById('fsBtn').addEventListener('click', async()=>{
 });
 
 /* Start */
+bindViewportResizeHandlers();
+setMediaWrapHeight();
 loadScenario();
 </script>
 
 </body>
-
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
