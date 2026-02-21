@@ -60,11 +60,10 @@ header.appbar{
   backdrop-filter:blur(6px);
 }
 
-/*  نقطة الحل الأساسية لتثبيت hotspots */
 .media-wrap{
   position:relative;
   width:100%;
-  aspect-ratio: 788 / 457; /* نسبة الصورة الأساسية */
+  aspect-ratio: 788 / 457;
   background:#0b1220;
   overflow:hidden;
 }
@@ -301,9 +300,6 @@ function makeScenario({
   };
 }
 
-/*=============================================================
-  SECTIONS + CASE 1 HOTSPOTS (حسب طلبك)
-=============================================================*/
 
 const SECTIONS = [
   {
@@ -324,29 +320,21 @@ const SECTIONS = [
         penalty:8,
         wrongReason:'Some blood test require specific requirements before the patient should meet before collect such as fasting, medication time, resting, etc. For example: Triglycerides are significantly affected by food intake',
         
-        /* HOTSPOTS — الجديدة */
-
-        /* الكمبيوتر → overlay */
         overlayHotspots:[
           { left:55, top:8, width:27, height:35 }
         ],
 
-        /* المصباح + المريض */
         messageHotspots:[
           { left:90, top:2, width:8, height:12, title:'Hint', body:'Click on the computer and the patient.' },
           { left:5, top:18, width:40, height:75, title:'info.', body:'The patient ate two hours ago.' }
         ]
       })
 
-      /* باقي الحالات نفس كودك، لم ألمسها */
     ]
   }
 ];
 
 
-/*=============================================================
-  باقي النظام: نفس شغلك بدون تعديل
-=============================================================*/
 
 const state = {
   total:100, points:100,
@@ -607,6 +595,7 @@ loadScenario();
 </body>
 
 </html>
+
 
 
 
