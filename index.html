@@ -62,11 +62,10 @@ header.appbar{
 
 .media-wrap{
   position:relative; width:100%;
-  /* إزالة نسبة الأبعاد حتى نتحكم بالارتفاع برمجيًا */
-  /* aspect-ratio:16/9; */
   background:#0b1220; overflow:hidden;
 }
 .base-media{width:100%; height:100%; object-fit:contain; display:block;}
+
 .overlay-media{
   position:absolute; inset:0; display:none;
   align-items:center; justify-content:center;
@@ -240,10 +239,10 @@ const SECTIONS = [
         correctChoiceId:'c',
         penalty:8,
         wrongReason:'Some blood test require specific requirements befor the patient shouls meet before collect such as fasting, medication time, resting, etc. For example: Triglycerides are significatly affected by food intake.',
-        overlayHotspots:[{left:48, top:6, width:19, height:22}],
+        overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
         messageHotspots:[
-          {left:92, top:1, width:5, height:10, title:'Hint', body:'Click on the computer and the patient.'},
-          {left:11, top:20, width:35, height:75, title:'info.', body:'The patient ate two hours ago.'}
+          {imgLeft:92, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
+          {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'The patient ate two hours ago.'}
         ]
       }),
 
@@ -404,24 +403,27 @@ function updateHeader(){
   progressText.textContent=`OPD ${s} — Case ${sc} of ${SECTIONS[state.sectionIndex].scenarios.length}`;
 }
 
+
 function getViewportHeight() {
   if (window.visualViewport && typeof window.visualViewport.height === 'number') {
     return Math.round(window.visualViewport.height);
   }
   return window.innerHeight || document.documentElement.clientHeight || 0;
 }
+
 function setMediaWrapHeight() {
   const header = document.querySelector('header.appbar');
   const vpH = getViewportHeight();
   const headerH = header ? Math.round(header.getBoundingClientRect().height) : 0;
   const appPadding = 28; 
-  const gapBetween = 12; 
+  const gapBetween = 12;
   let available = vpH - headerH - appPadding - gapBetween;
-  available = Math.max(280, available);
+  available = Math.max(280, available); 
   if (mediaWrap) mediaWrap.style.height = available + 'px';
 }
+
 function bindViewportResizeHandlers() {
-  const r = () => { setMediaWrapHeight(); };
+  const r = () => { setMediaWrapHeight(); positionHotspots(); };
   window.addEventListener('resize', r, { passive:true });
   window.addEventListener('orientationchange', () => setTimeout(r,150), { passive:true });
   if (window.visualViewport) {
@@ -449,11 +451,86 @@ function createOverlayMediaEl({type='image',src}){
 
 
 
+let _allHotspots = [];
+
+function getDisplayedImageRect() {
+  const img = mediaWrap.querySelector('.base-media');
+  if (!img) return null;
+
+  const wrapRect = mediaWrap.getBoundingClientRect();
+  const wrapW = wrapRect.width;
+  const wrapH = wrapRect.height;
+
+  const natW = img.naturalWidth || img.videoWidth || 0;
+  const natH = img.naturalHeight || img.videoHeight || 0;
+  if (!natW || !natH || !wrapW || !wrapH) return null;
+
+  const scale = Math.min(wrapW / natW, wrapH / natH);
+
+  const dispW = natW * scale;
+  const dispH = natH * scale;
+
+  const offsetX = (wrapW - dispW) / 2;
+  const offsetY = (wrapH - dispH) / 2;
+
+  return { offsetX, offsetY, dispW, dispH, wrapW, wrapH };
+}
+
+function positionHotspots() {
+  const rect = getDisplayedImageRect();
+  if (!rect) return;
+  const { offsetX, offsetY, dispW, dispH } = rect;
+
+  _allHotspots.forEach(hs => {
+    const ix = parseFloat(hs.dataset.imgLeft);    
+    const iy = parseFloat(hs.dataset.imgTop);     
+    const iw = parseFloat(hs.dataset.imgWidth);
+    const ih = parseFloat(hs.dataset.imgHeight);
+
+    const leftPx = offsetX + (ix/100) * dispW;
+    const topPx  = offsetY + (iy/100) * dispH;
+    const wPx    = (iw/100) * dispW;
+    const hPx    = (ih/100) * dispH;
+
+    hs.style.left   = leftPx + 'px';
+    hs.style.top    = topPx + 'px';
+    hs.style.width  = wPx + 'px';
+    hs.style.height = hPx + 'px';
+  });
+}
+
+function makeHotspotByImageCoords({imgLeft,imgTop,imgWidth,imgHeight}) {
+  const hs = document.createElement('button');
+  hs.className = 'hotspot';
+  hs.dataset.imgLeft = imgLeft;
+  hs.dataset.imgTop = imgTop;
+  hs.dataset.imgWidth = imgWidth;
+  hs.dataset.imgHeight = imgHeight;
+
+  hs.style.position = 'absolute';
+  hs.style.left = '0px';
+  hs.style.top = '0px';
+  hs.style.width = '0px';
+  hs.style.height = '0px';
+  return hs;
+}
+
+
+
 function clearMedia(){
   [...mediaWrap.children].forEach(ch=>{ if(ch!==overlay) ch.remove(); });
   [...overlay.children].forEach(ch=>{ if(ch!==overlayCloseBtn) ch.remove(); });
   overlay.classList.remove('active');
   mediaWrap.classList.remove('dimmed');
+}
+
+function scrollQuestionIntoViewSmooth() {
+  if (questionBox && questionBox.classList.contains('active')) {
+    questionBox.scrollIntoView({ behavior:'smooth', block:'start' });
+  } else {
+    const stage = document.querySelector('.stage');
+    if (stage) stage.scrollIntoView({ behavior:'smooth', block:'end' });
+  }
 }
 
 function setOverlay(open,spec){
@@ -471,29 +548,12 @@ function setOverlay(open,spec){
   }
 }
 
-function makeHotspot({left,top,width,height}){
-  const hs=document.createElement('button');
-  hs.className='hotspot';
-  hs.style.left=left+'%'; hs.style.top=top+'%';
-  hs.style.width=width+'%'; hs.style.height=height+'%';
-  return hs;
-}
-
 function openMessageModal(idx,title,body){
   msgTitle.textContent=title;
   msgBody.textContent=body;
   msgModal.classList.add('active');
   state.messageOpenedSet.add(idx);
   tryShowQuestion();
-}
-
-function scrollQuestionIntoViewSmooth() {
-  if (questionBox && questionBox.classList.contains('active')) {
-    questionBox.scrollIntoView({ behavior:'smooth', block:'start' });
-  } else {
-    const stage = document.querySelector('.stage');
-    if (stage) stage.scrollIntoView({ behavior:'smooth', block:'end' });
-  }
 }
 
 function tryShowQuestion(){
@@ -512,10 +572,12 @@ function tryShowQuestion(){
 }
 
 function loadScenario(){
-  setMediaWrapHeight(); 
+  setMediaWrapHeight();
   state.overlayOpenedCount=0;
   state.messageOpenedSet.clear();
   state.answered=false;
+
+  _allHotspots = []; 
 
   questionBox.classList.remove('active');
 
@@ -524,22 +586,38 @@ function loadScenario(){
   const {scenario}=getCurrent();
   updateHeader();
 
-  mediaWrap.insertBefore(createMediaEl(scenario.baseMedia), overlay);
+  const baseEl = createMediaEl(scenario.baseMedia);
+  mediaWrap.insertBefore(baseEl, overlay);
 
-  scenario.overlayHotspots.forEach(h=>{
-    const hs=makeHotspot(h);
+  const onReady = () => { positionHotspots(); };
+  if (baseEl.tagName === 'IMG') {
+    if (baseEl.complete) {
+      onReady();
+    } else {
+      baseEl.addEventListener('load', onReady, { once:true });
+    }
+  } else if (baseEl.tagName === 'VIDEO') {
+    baseEl.addEventListener('loadedmetadata', onReady, { once:true });
+  }
+
+  (scenario.overlayHotspots || []).forEach(h=>{
+    const hs = makeHotspotByImageCoords(h);
     hs.addEventListener('click',()=>setOverlay(!overlay.classList.contains('active'), scenario.overlayMedia));
     mediaWrap.appendChild(hs);
+    _allHotspots.push(hs);
   });
 
-  scenario.messageHotspots.forEach((m,i)=>{
-    const hs=makeHotspot(m);
+  (scenario.messageHotspots || []).forEach((m,i)=>{
+    const hs = makeHotspotByImageCoords(m);
     hs.addEventListener('click',()=>openMessageModal(i,m.title,m.body));
     mediaWrap.appendChild(hs);
+    _allHotspots.push(hs);
   });
 
   qTitle.textContent=scenario.question;
   renderOptions(scenario.choices);
+
+  requestAnimationFrame(positionHotspots);
 }
 
 function renderOptions(choices){
@@ -589,9 +667,7 @@ function goNext(){
   }
 }
 
-/* =========================================================
-   الأحداث
-   ========================================================= */
+
 
 overlayCloseBtn.addEventListener('click',()=>setOverlay(false));
 msgClose.addEventListener('click',()=>msgModal.classList.remove('active'));
@@ -633,7 +709,6 @@ skipBtn.addEventListener('click',()=>{
   goNext();
 });
 
-/* Fullscreen */
 document.getElementById('fsBtn').addEventListener('click', async()=>{
   const root=document.documentElement;
   try{
