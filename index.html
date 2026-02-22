@@ -230,7 +230,7 @@ const SECTIONS = [
         id:'1-1',
         baseSrc:'case1basic.jpg',
         overlaySrc:'case1S.jpg',
-        question:'what the action ?',
+        question:'what the correct action ?',
         choices:[
           {id:'a', label:'collect the sample'},
           {id:'b', label:'collect the sample with comment'},
@@ -250,14 +250,15 @@ const SECTIONS = [
         id:'1-2',
         baseSrc:'case2basic.jpg',
         overlaySrc:'case2S.jpg',
-        question:'؟',
+        question:'what the correct action ?',
         choices:[
-          {id:'accept', label:'.....'},
-          {id:'resched', label:'.....'}
+          {id:'a', label:'collect the sample'},
+          {id:'b', label:'collect the sample with comment'},
+          {id:'c', label:'Reschedual testing and ask the patient to meet the requirement correctly'}
         ],
-        correctChoiceId:'accept',
+        correctChoiceId:'c',
         penalty:8,
-        wrongReason:'.....'
+        wrongReason:'Extended fasting may alter glucose and other analytes. This fall under meeting testing requirements'
       }),
 
       makeScenario({
@@ -730,6 +731,7 @@ loadScenario();
 
 </body>
 </html>
+
 
 
 
