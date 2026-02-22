@@ -187,7 +187,6 @@ header.appbar{
 
 <script>
 
-
 function makeScenario({
   id,
   baseType='image',
@@ -230,7 +229,7 @@ const SECTIONS = [
         id:'1-1',
         baseSrc:'case1basic.jpg',
         overlaySrc:'case1S.jpg',
-        question:'what the correct action ?',
+        question:'what the action ?',
         choices:[
           {id:'a', label:'collect the sample'},
           {id:'b', label:'collect the sample with comment'},
@@ -241,26 +240,30 @@ const SECTIONS = [
         wrongReason:'Some blood test require specific requirements befor the patient shouls meet before collect such as fasting, medication time, resting, etc. For example: Triglycerides are significatly affected by food intake.',
         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
         messageHotspots:[
-          {imgLeft:90.8, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
+          {imgLeft:92, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
           {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'The patient ate two hours ago.'}
         ]
       }),
 
-      makeScenario({
-        id:'1-2',
-        baseSrc:'case2basic.jpg',
-        overlaySrc:'case2S.jpg',
-        question:'what the correct action ?',
-        choices:[
-          {id:'a', label:'collect the sample'},
-          {id:'b', label:'collect the sample with comment'},
-          {id:'c', label:'Reschedual testing and ask the patient to meet the requirement correctly'}
-        ],
-        correctChoiceId:'c',
-        penalty:8,
-        wrongReason:'Extended fasting may alter glucose and other analytes. This fall under meeting testing requirements'
-     
-      }),
+       makeScenario({
+         id:'1-2',
+         baseSrc:'case2basic.jpg',
+         overlaySrc:'case2S.jpg',
+         question:'what the correct action ?',
+         choices:[
+           {id:'a', label:'collect the sample'},
+           {id:'b', label:'collect the sample with comment'},
+           {id:'c', label:'Reschedual testing and ask the patient to meet the requirement correctly'}
+         ],
+         correctChoiceId:'c',
+         penalty:8,
+         wrongReason:'Extended fasting may alter glucose and other analytes. This falls under meeting testing requirements.',
+         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
+         messageHotspots:[
+           {imgLeft:90.8, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
+           {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'The patient ate 18 hour ago.'}
+         ]
+       }),
 
       makeScenario({
         id:'1-3',
@@ -356,7 +359,6 @@ const state = {
 };
 
 
-
 const scoreVal=document.getElementById('scoreVal');
 const remainVal=document.getElementById('remainVal');
 const progressText=document.getElementById('progressText');
@@ -417,8 +419,8 @@ function setMediaWrapHeight() {
   const header = document.querySelector('header.appbar');
   const vpH = getViewportHeight();
   const headerH = header ? Math.round(header.getBoundingClientRect().height) : 0;
-  const appPadding = 28; 
-  const gapBetween = 12;
+  const appPadding = 28;
+  const gapBetween = 12; 
   let available = vpH - headerH - appPadding - gapBetween;
   available = Math.max(280, available); 
   if (mediaWrap) mediaWrap.style.height = available + 'px';
@@ -574,7 +576,7 @@ function tryShowQuestion(){
 }
 
 function loadScenario(){
-  setMediaWrapHeight();
+  setMediaWrapHeight(); 
   state.overlayOpenedCount=0;
   state.messageOpenedSet.clear();
   state.answered=false;
@@ -602,6 +604,7 @@ function loadScenario(){
     baseEl.addEventListener('loadedmetadata', onReady, { once:true });
   }
 
+  // Overlay hotspots
   (scenario.overlayHotspots || []).forEach(h=>{
     const hs = makeHotspotByImageCoords(h);
     hs.addEventListener('click',()=>setOverlay(!overlay.classList.contains('active'), scenario.overlayMedia));
@@ -609,6 +612,7 @@ function loadScenario(){
     _allHotspots.push(hs);
   });
 
+  // Message hotspots
   (scenario.messageHotspots || []).forEach((m,i)=>{
     const hs = makeHotspotByImageCoords(m);
     hs.addEventListener('click',()=>openMessageModal(i,m.title,m.body));
@@ -724,7 +728,6 @@ document.getElementById('fsBtn').addEventListener('click', async()=>{
   }catch{}
 });
 
-/* Start */
 bindViewportResizeHandlers();
 setMediaWrapHeight();
 loadScenario();
@@ -732,10 +735,3 @@ loadScenario();
 
 </body>
 </html>
-
-
-
-
-
-
-
