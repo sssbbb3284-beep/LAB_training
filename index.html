@@ -264,26 +264,26 @@ const SECTIONS = [
            {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'The patient ate 18 hour ago.'}
          ]
        }),
-
-      makeScenario({
-        id:'1-3',
-        baseSrc:'case3basic.jpg',
-        overlaySrc:'case3S.jpg',
-        question:'what the correct action ?',
-        choices:[
-           {id:'a', label:'collect the sample'},
-           {id:'b', label:'Release and reapply immediately before puncture'},
-           {id:'c', label:'Reschedual testing '}
-        ],
-        correctChoiceId:'b',
-        penalty:8,
-        wrongReason:'Prolonged and extra tight tourniquet application causes hemoconcentration. Intracrellular component leaking, and possible hemolysis.',
-        overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
-        messageHotspots:[
-           {imgLeft:90.8, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
-           {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'Tourniquet applied long '}
-         ]
-      }),
+makeScenario({
+    id:'1-3',
+    baseSrc:'case3basic.jpg',
+    overlaySrc:'case3S.jpg',
+    question:'what the correct action ?',
+    choices:[
+       {id:'a', label:'collect the sample'},
+       {id:'b', label:'Release and reapply immediately before puncture'},
+       {id:'c', label:'Reschedual testing '}
+    ],
+    correctChoiceId:'b',
+    penalty:8,
+    wrongReason:'Prolonged and extra tight tourniquet application causes hemoconcentration. Intracrellular component leaking, and possible hemolysis.',
+    overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
+    messageHotspots:[
+       {imgLeft:90.8, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
+       {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'Tourniquet applied long '}
+    ]
+}),
+  
 
       makeScenario({
         id:'1-4',
@@ -739,5 +739,6 @@ loadScenario();
 
 </body>
 </html>
+
 
 
