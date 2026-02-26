@@ -66,6 +66,8 @@ header.appbar{
 }
 .base-media{width:100%; height:100%; object-fit:contain; display:block;}
 
+.media-wrap.dimmed { filter:brightness(0.6); }
+
 .overlay-media{
   position:absolute; inset:0; display:none;
   align-items:center; justify-content:center;
@@ -123,7 +125,7 @@ header.appbar{
   </div>
 
   <div class="right-tools">
-    <button id="fsBtn" class="btn">Full screen ⛶</button>
+    <button id="fsBtn" class="btn" type="button">Full screen ⛶</button>
   </div>
 </header>
 
@@ -131,20 +133,20 @@ header.appbar{
 <section class="stage">
 
 <div id="mediaWrap" class="media-wrap">
-  <div id="overlay" class="overlay-media">
-    <button id="overlayCloseBtn" class="overlay-close">Close ×</button>
+  <div id="overlay" class="overlay-media" role="dialog" aria-modal="true" aria-label="Overlay">
+    <button id="overlayCloseBtn" class="overlay-close" type="button">Close ×</button>
   </div>
 </div>
 
 <div class="panel">
 
-<div id="questionBox" class="question">
+<div id="questionBox" class="question" aria-live="polite">
   <h3 id="qTitle">what the action </h3>
   <div id="options" class="options"></div>
 
   <div class="actions" style="margin-top:12px; display:flex; gap:10px;">
-    <button id="submitBtn" class="btn" style="background:#064e3b;border-color:#065f46;color:#d1fae5;">Answer</button>
-    <button id="skipBtn" class="btn">Continue</button>
+    <button id="submitBtn" class="btn" style="background:#064e3b;border-color:#065f46;color:#d1fae5;" type="button">Answer</button>
+    <button id="skipBtn" class="btn" type="button">Continue</button>
   </div>
 </div>
 
@@ -153,37 +155,37 @@ header.appbar{
 </main>
 </div>
 
-<div id="msgModal" class="modal">
+<div id="msgModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="msgTitle">
   <div class="box" style="background:#0a1220; padding:16px; border-radius:14px;">
     <h4 id="msgTitle">Message</h4>
     <p id="msgBody"></p>
     <div style="display:flex; justify-content:flex-end;">
-      <button id="msgClose" class="btn">Close</button>
+      <button id="msgClose" class="btn" type="button">Close</button>
     </div>
   </div>
 </div>
 
-<div id="feedbackModal" class="modal">
+<div id="feedbackModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="fbTitle">
   <div class="box" style="background:#0a1220; padding:16px; border-radius:14px;">
     <h4 id="fbTitle"></h4>
     <p id="fbBody"></p>
     <div style="display:flex; justify-content:flex-end;">
-      <button id="fbContinue" class="btn" style="background:#064e3b;">Continue</button>
+      <button id="fbContinue" class="btn" style="background:#064e3b;" type="button">Continue</button>
     </div>
   </div>
 </div>
 
-<div id="sectionModal" class="modal">
+<div id="sectionModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="sectionTitle">
   <div class="box" style="background:#0a1220; padding:16px; border-radius:14px;">
     <h4 id="sectionTitle"></h4>
     <p id="sectionBody"></p>
     <div style="display:flex; justify-content:flex-end;">
-      <button id="sectionContinue" class="btn" style="background:#064e3b;">Continue</button>
+      <button id="sectionContinue" class="btn" style="background:#064e3b;" type="button">Continue</button>
     </div>
   </div>
 </div>
 
-<div id="toast" class="toast"></div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
 
 <script>
 
@@ -218,8 +220,6 @@ function makeScenario({
   };
 }
 
-
-
 const SECTIONS = [
   {
     title:'Area 1',
@@ -237,7 +237,7 @@ const SECTIONS = [
         ],
         correctChoiceId:'c',
         penalty:8,
-        wrongReason:'Some blood test require specific requirements befor the patient shouls meet before collect such as fasting, medication time, resting, etc. For example: Triglycerides are significatly affected by food intake.',
+        wrongReason:'Some blood tests require specific requirements the patient should meet before collection such as fasting, medication timing, resting, etc. For example: Triglycerides are significantly affected by food intake.',
         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
         messageHotspots:[
           {imgLeft:92, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
@@ -245,45 +245,45 @@ const SECTIONS = [
         ]
       }),
 
-       makeScenario({
-         id:'1-2',
-         baseSrc:'case2basic.jpg',
-         overlaySrc:'case2S.jpg',
-         question:'what the correct action ?',
-         choices:[
-           {id:'a', label:'collect the sample'},
-           {id:'b', label:'collect the sample with comment'},
-           {id:'c', label:'Reschedual testing and ask the patient to meet the requirement correctly'}
-         ],
-         correctChoiceId:'c',
-         penalty:8,
-         wrongReason:'Extended fasting may alter glucose and other analytes. This falls under meeting testing requirements.',
-         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
-         messageHotspots:[
-           {imgLeft:90.8, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
-           {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'The patient ate 18 hour ago.'}
-         ]
-       }),
-makeScenario({
-    id:'1-3',
-    baseSrc:'case3basic.jpg',
-    overlaySrc:'case3S.jpg',
-    question:'what the correct action ?',
-    choices:[
-       {id:'a', label:'collect the sample'},
-       {id:'b', label:'Release and reapply immediately before puncture'},
-       {id:'c', label:'Reschedual testing '}
-    ],
-    correctChoiceId:'b',
-    penalty:8,
-    wrongReason:'Prolonged and extra tight tourniquet application causes hemoconcentration. Intracrellular component leaking, and possible hemolysis.',
-    overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
-    messageHotspots:[
-       {imgLeft:90.8, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
-       {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'Tourniquet applied long '}
-    ]
-}),
-  
+      makeScenario({
+        id:'1-2',
+        baseSrc:'case2basic.jpg',
+        overlaySrc:'case2S.jpg',
+        question:'what the correct action ?',
+        choices:[
+          {id:'a', label:'collect the sample'},
+          {id:'b', label:'collect the sample with comment'},
+          {id:'c', label:'Reschedule testing and ask the patient to meet the requirement correctly'}
+        ],
+        correctChoiceId:'c',
+        penalty:8,
+        wrongReason:'Extended fasting may alter glucose and other analytes. This falls under meeting testing requirements.',
+        overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
+        messageHotspots:[
+          {imgLeft:90.8, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
+          {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'The patient ate 18 hours ago.'}
+        ]
+      }),
+
+      makeScenario({
+        id:'1-3',
+        baseSrc:'case3basic.jpg',
+        overlaySrc:'case3S.jpg',
+        question:'what the correct action ?',
+        choices:[
+          {id:'a', label:'collect the sample'},
+          {id:'b', label:'Release and reapply immediately before puncture'},
+          {id:'c', label:'Reschedule testing '}
+        ],
+        correctChoiceId:'b',
+        penalty:8,
+        wrongReason:'Prolonged and extra tight tourniquet application causes hemoconcentration, intracellular component leaking, and possible hemolysis.',
+        overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
+        messageHotspots:[
+          {imgLeft:90.8, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
+          {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'Tourniquet applied long'}
+        ]
+      }),
 
       makeScenario({
         id:'1-4',
@@ -294,7 +294,11 @@ makeScenario({
           {id:'go', label:'.......'},
           {id:'hold', label:'......'}
         ],
-        correctChoiceId:'hold'
+        correctChoiceId:'hold',
+        penalty:8,
+        wrongReason:'Wrong Answer',
+        overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
+        messageHotspots:[]
       }),
 
       makeScenario({
@@ -307,7 +311,11 @@ makeScenario({
           {id:'cancel', label:'......'},
           {id:'resched', label:'......'}
         ],
-        correctChoiceId:'collect'
+        correctChoiceId:'collect',
+        penalty:8,
+        wrongReason:'Wrong Answer',
+        overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
+        messageHotspots:[]
       }),
 
       makeScenario({
@@ -319,7 +327,11 @@ makeScenario({
           {id:'collect', label:'......'},
           {id:'reject', label:'.......'}
         ],
-        correctChoiceId:'reject'
+        correctChoiceId:'reject',
+        penalty:8,
+        wrongReason:'Wrong Answer',
+        overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
+        messageHotspots:[]
       }),
 
       makeScenario({
@@ -332,7 +344,11 @@ makeScenario({
           {id:'note', label:'....'},
           {id:'resched', label:'.....'}
         ],
-        correctChoiceId:'resched'
+        correctChoiceId:'resched',
+        penalty:8,
+        wrongReason:'Wrong Answer',
+        overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
+        messageHotspots:[]
       }),
 
       makeScenario({
@@ -345,14 +361,16 @@ makeScenario({
           {id:'reject', label:'......'},
           {id:'call', label:'.....'}
         ],
-        correctChoiceId:'reject'
+        correctChoiceId:'reject',
+        penalty:8,
+        wrongReason:'Wrong Answer',
+        overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
+        messageHotspots:[]
       })
 
     ]
   }
 ];
-
-
 
 const state = {
   total:100, points:100,
@@ -361,7 +379,6 @@ const state = {
   messageOpenedSet:new Set(),
   answered:false
 };
-
 
 const scoreVal=document.getElementById('scoreVal');
 const remainVal=document.getElementById('remainVal');
@@ -393,10 +410,13 @@ const sectionBody=document.getElementById('sectionBody');
 const sectionContinue=document.getElementById('sectionContinue');
 
 const toastEl=document.getElementById('toast');
+const fsBtn=document.getElementById('fsBtn'); 
 
-
-
-function showToast(msg){ toastEl.textContent=msg; toastEl.classList.add('show'); setTimeout(()=>toastEl.classList.remove('show'),1800); }
+function showToast(msg){
+  toastEl.textContent=msg;
+  toastEl.classList.add('show');
+  setTimeout(()=>toastEl.classList.remove('show'),1800);
+}
 
 function getCurrent(){
   const section=SECTIONS[state.sectionIndex];
@@ -411,7 +431,6 @@ function updateHeader(){
   progressText.textContent=`OPD ${s} — Case ${sc} of ${SECTIONS[state.sectionIndex].scenarios.length}`;
 }
 
-
 function getViewportHeight() {
   if (window.visualViewport && typeof window.visualViewport.height === 'number') {
     return Math.round(window.visualViewport.height);
@@ -424,9 +443,9 @@ function setMediaWrapHeight() {
   const vpH = getViewportHeight();
   const headerH = header ? Math.round(header.getBoundingClientRect().height) : 0;
   const appPadding = 28;
-  const gapBetween = 12; 
+  const gapBetween = 12;
   let available = vpH - headerH - appPadding - gapBetween;
-  available = Math.max(280, available); 
+  available = Math.max(280, available);
   if (mediaWrap) mediaWrap.style.height = available + 'px';
 }
 
@@ -439,8 +458,6 @@ function bindViewportResizeHandlers() {
     window.visualViewport.addEventListener('scroll', r, { passive:true });
   }
 }
-
-
 
 function createMediaEl({type='image',src}){
   let el = document.createElement(type==='video'?'video':'img');
@@ -457,8 +474,6 @@ function createOverlayMediaEl({type='image',src}){
   return el;
 }
 
-
-
 let _allHotspots = [];
 
 function getDisplayedImageRect() {
@@ -474,10 +489,8 @@ function getDisplayedImageRect() {
   if (!natW || !natH || !wrapW || !wrapH) return null;
 
   const scale = Math.min(wrapW / natW, wrapH / natH);
-
   const dispW = natW * scale;
   const dispH = natH * scale;
-
   const offsetX = (wrapW - dispW) / 2;
   const offsetY = (wrapH - dispH) / 2;
 
@@ -490,8 +503,8 @@ function positionHotspots() {
   const { offsetX, offsetY, dispW, dispH } = rect;
 
   _allHotspots.forEach(hs => {
-    const ix = parseFloat(hs.dataset.imgLeft);    
-    const iy = parseFloat(hs.dataset.imgTop);     
+    const ix = parseFloat(hs.dataset.imgLeft);
+    const iy = parseFloat(hs.dataset.imgTop);
     const iw = parseFloat(hs.dataset.imgWidth);
     const ih = parseFloat(hs.dataset.imgHeight);
 
@@ -514,6 +527,7 @@ function makeHotspotByImageCoords({imgLeft,imgTop,imgWidth,imgHeight}) {
   hs.dataset.imgTop = imgTop;
   hs.dataset.imgWidth = imgWidth;
   hs.dataset.imgHeight = imgHeight;
+  hs.type = 'button';
 
   hs.style.position = 'absolute';
   hs.style.left = '0px';
@@ -522,8 +536,6 @@ function makeHotspotByImageCoords({imgLeft,imgTop,imgWidth,imgHeight}) {
   hs.style.height = '0px';
   return hs;
 }
-
-
 
 function clearMedia(){
   [...mediaWrap.children].forEach(ch=>{ if(ch!==overlay) ch.remove(); });
@@ -580,12 +592,12 @@ function tryShowQuestion(){
 }
 
 function loadScenario(){
-  setMediaWrapHeight(); 
+  setMediaWrapHeight();
   state.overlayOpenedCount=0;
   state.messageOpenedSet.clear();
   state.answered=false;
 
-  _allHotspots = []; 
+  _allHotspots = [];
 
   questionBox.classList.remove('active');
 
@@ -678,10 +690,15 @@ function goNext(){
 }
 
 
-
 overlayCloseBtn.addEventListener('click',()=>setOverlay(false));
+
+[ msgModal, feedbackModal, sectionModal ].forEach(modal => {
+  modal.addEventListener('click', (e) => {
+    if(e.target === modal) modal.classList.remove('active');
+  }, { passive:true });
+});
+
 msgClose.addEventListener('click',()=>msgModal.classList.remove('active'));
-feedbackModal.addEventListener('click',e=>{ if(e.target===feedbackModal) feedbackModal.classList.remove('active'); });
 fbContinue.addEventListener('click',()=>{ feedbackModal.classList.remove('active'); goNext(); });
 
 sectionContinue.addEventListener('click',()=>{
@@ -719,7 +736,7 @@ skipBtn.addEventListener('click',()=>{
   goNext();
 });
 
-document.getElementById('fsBtn').addEventListener('click', async()=>{
+fsBtn.addEventListener('click', async()=>{
   const root=document.documentElement;
   try{
     if(!document.fullscreenElement){
@@ -729,7 +746,8 @@ document.getElementById('fsBtn').addEventListener('click', async()=>{
       await document.exitFullscreen();
       fsBtn.textContent='Full screen ⛶';
     }
-  }catch{}
+  }catch{
+  }
 });
 
 bindViewportResizeHandlers();
@@ -739,6 +757,3 @@ loadScenario();
 
 </body>
 </html>
-
-
-
