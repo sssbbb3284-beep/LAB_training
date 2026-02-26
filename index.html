@@ -551,7 +551,7 @@ function scrollQuestionIntoViewSmooth() {
   }
 }
 
-function setOverlay(open,spec){
+function setOverlay(open, spec){
   if(open){
     if(!overlay.querySelector('img,video')){
       overlay.insertBefore(createOverlayMediaEl(spec), overlayCloseBtn.nextSibling);
@@ -561,7 +561,12 @@ function setOverlay(open,spec){
     state.overlayOpenedCount++;
     tryShowQuestion();
   }else{
+    overlay.classList.remove('active');
+    mediaWrap.classList.remove('dimmed');
 
+    [...overlay.children].forEach(ch=>{
+      if(ch !== overlayCloseBtn) ch.remove();
+    });
   }
 }
 
@@ -754,6 +759,7 @@ loadScenario();
 
 </body>
 </html>
+
 
 
 
