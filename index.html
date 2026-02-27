@@ -286,17 +286,21 @@ const SECTIONS = [
       makeScenario({
         id:'1-4',
         baseSrc:'case4basic.jpg',
-        overlaySrc:'case4S.jpg',
-        question:'؟',
+        overlaySrc:'case3S.jpg',
+        question:'what the correct action ?',
         choices:[
-          {id:'go', label:'.......'},
-          {id:'hold', label:'......'}
+          {id:'a', label:'collect the sample since we already disinfection the skin'},
+          {id:'b', label:'re-perform without touching the puncture site'},
+          {id:'c', label:'Choosing another spot to restart the proses '}
         ],
-        correctChoiceId:'hold',
+        correctChoiceId:'b',
         penalty:8,
-        wrongReason:'Wrong Answer',
+        wrongReason:'Touching cause contamination and  increases false positives.',
         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
-        messageHotspots:[]
+        messageHotspots:[
+          {imgLeft:90.8, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
+          {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'The patient scratched the area after it had been disinfection.'}
+        ]
       }),
 
       makeScenario({
@@ -759,6 +763,7 @@ loadScenario();
 
 </body>
 </html>
+
 
 
 
