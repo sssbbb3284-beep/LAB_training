@@ -307,18 +307,23 @@ const SECTIONS = [
         id:'1-5',
         baseSrc:'case5basic.jpg',
         overlaySrc:'case5S.jpg',
-        question:'؟',
+        question:'what the correct action ?',
         choices:[
-          {id:'collect', label:'.....'},
-          {id:'cancel', label:'......'},
-          {id:'resched', label:'......'}
+          {id:'a', label:'Correct action, we will complete the process.'},
+          {id:'b', label:'Wrong action, we must fell aerobic bottle before anaerobic.'},
+          {id:'c', label:'Chang nedal size to have good flow.'}
         ],
-        correctChoiceId:'collect',
+        correctChoiceId:'b',
         penalty:8,
-        wrongReason:'Wrong Answer',
-        overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
-        messageHotspots:[]
+        wrongReason:'The tubing of a butterfly set contains a small amount of air.If you fill the anaerobic bottle first, that air may enter it and affect the growth of anaerobic organisms.',
+        overlayHotspots:[{imgLeft:47, imgTop:6, imgWidth:19, imgHeight:22}],
+         messageHotspots:[
+          {imgLeft:90.8, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the blood culture bottles.'},
+          {imgLeft:60, imgTop:20, imgWidth:10, imgHeight:15, title:'info.', body:'Aerobic bottle filled before anaerobic by using butterfly needle.'}
+        ]
+
       }),
+
 
       makeScenario({
         id:'1-6',
@@ -763,6 +768,7 @@ loadScenario();
 
 </body>
 </html>
+
 
 
 
