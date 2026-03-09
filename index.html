@@ -303,7 +303,7 @@ const SECTIONS = [
         ]
       }),
 
-      makeScenario({
+     makeScenario({
         id:'1-5',
         baseSrc:'case5basic.jpg',
         overlaySrc:'case5S.jpg',
@@ -318,27 +318,31 @@ const SECTIONS = [
         wrongReason:'The tubing of a butterfly set contains a small amount of air.If you fill the anaerobic bottle first, that air may enter it and affect the growth of anaerobic organisms.',
         overlayHotspots:[{imgLeft:47, imgTop:6, imgWidth:19, imgHeight:22}],
          messageHotspots:[
-          {imgLeft:90.8, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the blood culture bottles.'},
-          {imgLeft:60, imgTop:20, imgWidth:10, imgHeight:15, title:'info.', body:'Aerobic bottle filled before anaerobic by using butterfly needle.'}
+          {imgLeft:93, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the blood culture bottles.'},
+          {imgLeft:65, imgTop:20, imgWidth:10, imgHeight:15, title:'info.', body:'Aerobic bottle filled before anaerobic by using butterfly needle.'}
         ]
 
       }),
-
 
       makeScenario({
         id:'1-6',
         baseSrc:'case6basic.jpg',
         overlaySrc:'case6S.jpg',
-        question:'؟',
+        question:'what the correct action ?',
         choices:[
-          {id:'collect', label:'......'},
-          {id:'reject', label:'.......'}
+          {id:'a', label:'Reject if affected. Gently invert the tube 3-5 times.'},
+          {id:'b', label:'Centrifuge sample immediately to save it.'},
+          {id:'c', label:'Accepte sample since it already collect.'}
         ],
-        correctChoiceId:'reject',
+        correctChoiceId:'a',
         penalty:8,
-        wrongReason:'Wrong Answer',
+        wrongReason:'Excessive agitation causes hemolysis.',
         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
-        messageHotspots:[]
+        messageHotspots:[
+          {imgLeft:93, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and Tubes.'},
+          {imgLeft:62, imgTop:20, imgWidth:10, imgHeight:15, title:'info.', body:'Tubes were shaken aggressively.'}
+        ]
+
       }),
 
       makeScenario({
@@ -768,6 +772,7 @@ loadScenario();
 
 </body>
 </html>
+
 
 
 
