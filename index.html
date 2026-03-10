@@ -339,8 +339,8 @@ const SECTIONS = [
         wrongReason:'Excessive agitation causes hemolysis.',
         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
         messageHotspots:[
-          {imgLeft:93, imgTop:1, imgWidth:8, imgHeight:10, title:'Hint', body:'Click on the computer and Tubes.'},
-          {imgLeft:62, imgTop:20, imgWidth:15, imgHeight:15, title:'info.', body:'Tubes were shaken aggressively.'}
+          {imgLeft:93, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and Tubes.'},
+          {imgLeft:62, imgTop:20, imgWidth:10, imgHeight:15, title:'info.', body:'Tubes were shaken aggressively.'}
         ]
 
       }),
@@ -349,18 +349,24 @@ const SECTIONS = [
         id:'1-7',
         baseSrc:'case7basic.jpg',
         overlaySrc:'case7S.jpg',
-        question:'؟',
+        question:'what the correct action ?',
         choices:[
-          {id:'now', label:'......'},
-          {id:'note', label:'....'},
-          {id:'resched', label:'.....'}
+          {id:'a', label:'Wrong proseger, need Perform a fresh venipuncture.'},
+          {id:'b', label:'Accepting the sample and sending it to the lab.'},
+          {id:'c', label:'Add a comment to the sample label with a pen.'}
+
         ],
-        correctChoiceId:'resched',
+        correctChoiceId:'a',
         penalty:8,
-        wrongReason:'Wrong Answer',
+        wrongReason:'Fresh venipuncture ensures uncontaminated, reliable results.',
         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
-        messageHotspots:[]
+         messageHotspots:[
+          {imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
+          {imgLeft:60, imgTop:26, imgWidth:30, imgHeight:65, title:'info.', body:'Drawing blood from an existing cannula.'}
+        ]
+
       }),
+
 
       makeScenario({
         id:'1-8',
@@ -772,6 +778,7 @@ loadScenario();
 
 </body>
 </html>
+
 
 
 
