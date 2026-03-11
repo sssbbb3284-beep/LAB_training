@@ -368,21 +368,24 @@ const SECTIONS = [
       }),
 
 
-      makeScenario({
+     makeScenario({
         id:'1-8',
         baseSrc:'case8basic.jpg',
-        overlaySrc:'case8S.jpg',
-        question:'؟',
+        overlaySrc:'case7S.jpg',
+        question:'what the correct action ?',
         choices:[
-          {id:'proceed', label:'.....'},
-          {id:'reject', label:'......'},
-          {id:'call', label:'.....'}
+           {id:'a', label:'Sending it to the lab.'},
+          {id:'b', label:'Reject the sample and recollect it after removing the IV bag.'},
+          {id:'c', label:'Reject and recollect from a site opposite to the cannula side.'}
         ],
-        correctChoiceId:'reject',
+        correctChoiceId:'c',
         penalty:8,
-        wrongReason:'Wrong Answer',
         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
-        messageHotspots:[]
+         messageHotspots:[
+          {imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
+          {imgLeft:60, imgTop:26, imgWidth:30, imgHeight:65, title:'info.', body:'The sample was collected from the same hand holding the IV bag, without removing it.'}
+        ]
+
       })
 
     ]
@@ -778,6 +781,7 @@ loadScenario();
 
 </body>
 </html>
+
 
 
 
