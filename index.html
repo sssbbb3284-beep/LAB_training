@@ -108,12 +108,147 @@ header.appbar{
        border:1px solid #1f2937; color:white; padding:10px 12px;
        border-radius:10px; display:none;}
 .toast.show{display:block;}
+
+
+.start-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 120; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: radial-gradient(1400px 900px at 15% -10%, #0f172a 0%, #0b1224 60%, #08101e 100%);
+}
+
+.start-screen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: center/contain no-repeat url('logo.png'); 
+  opacity: 0.08; 
+  pointer-events: none;
+}
+
+.start-box {
+  position: relative;
+  max-width: min(920px, 90vw);
+  width: 100%;
+  background: rgba(10, 18, 32, 0.72);
+  border: 1px solid #1f2937;
+  border-radius: var(--radius);
+  box-shadow: 0 18px 50px rgba(0,0,0,.38);
+  padding: clamp(16px, 2.6vw, 28px);
+  backdrop-filter: blur(8px);
+  color: var(--text);
+ text-align: center;
+}
+
+.start-title {
+  margin: 0 0 8px 0;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: .2px;
+  font-size: clamp(28px, 5vw, 44px);
+  text-shadow: 0 2px 6px rgba(0,0,0,.55);
+}
+.start-desc {
+  margin: 0 0 16px 0;
+  color: #d1d5db;
+  font-size: clamp(14px, 2.5vw, 18px);
+  line-height: 1.6;
+  text-shadow: 0 1px 4px rgba(0,0,0,.5);
+}
+
+.start-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 10px 0 14px 0;
+justify-content: center;
+}
+#startBtn {
+  appearance: none;
+  border: 1px solid #065f46;
+  background: linear-gradient(180deg, #047857, #065f46);
+  color: #ecfdf5;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: clamp(14px, 2.6vw, 16px);
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.06);
+}
+#startBtn:active { transform: translateY(1px); }
+
+.start-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 10px;
+}
+@media (min-width: 720px) {
+  .start-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+}
+.start-card {
+  background: rgba(9, 18, 38, 0.66);
+  border: 1px solid #223047;
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  color: #e5e7eb;
+  line-height: 1.7;
+  font-size: clamp(13px, 2.2vw, 15px);
+  text-shadow: 0 1px 4px rgba(0,0,0,.5);
+}
+
+.start-card strong, .start-title, .start-desc {
+  text-shadow:
+    0 2px 6px rgba(0,0,0,.55),
+    0 0 1px rgba(0,0,0,.35);
+}
+
+.start-screen.hidden { display: none; }
+
+#startBtn:focus-visible {
+  outline: 3px solid #22c55e;
+  outline-offset: 2px;
+}
+
 </style>
 
 </head>
 <body>
 
+
 <div class="app">
+<!-- Start / Landing Screen -->
+<div id="startScreen" class="start-screen" role="dialog" aria-modal="true" aria-labelledby="startTitle">
+  <div class="start-box">
+    <h1 id="startTitle" class="start-title">preanalytical phase overview</h1>
+    <p class="start-desc">A collaboration project designed and developed between Taibah university students & the department of OPD & Receiving lab at prince Mohammed Bin Abdullaziz National Guard hospital, Madina</p>
+
+    <div class="start-actions">
+      <button id="startBtn" type="button" aria-label="start traning">start</button>
+    </div>
+
+    <div class="start-grid" dir="auto">
+      <div class="start-card">
+        <p style="margin:0;">
+          <strong>Developed by students from the College of Computer Science and Engineering:</strong><br>
+          sarah.<br>
+          susan.
+        </p>
+      </div>
+      <div class="start-card">
+        <p style="margin:0;">
+          <strong>1</strong><br>
+          2<br>
+          3
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <header class="appbar">
   <div class="score">
@@ -222,7 +357,9 @@ const SECTIONS = [
   {
     title:'Area 1',
     scenarios:[
-           
+
+
+         
  makeScenario({
         id:'1-0', 
         baseSrc:'case1basic.jpg',
@@ -233,7 +370,7 @@ const SECTIONS = [
           {id:'b', label:'Reject'},
         ],
         correctChoiceId:'b', 
-        penalty:8,
+        penalty:5,
         wrongReason:'Misidentification is a critical patient safety error.',
         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
         messageHotspots:[
@@ -241,6 +378,7 @@ const SECTIONS = [
           {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'The patient said his name was Mohammed and he was 65 years old.'}
         ]
       }),
+
 
       makeScenario({
         id:'1-1',
@@ -253,7 +391,7 @@ const SECTIONS = [
           {id:'c', label:'Reschedule for 8-12 hours fasting'}
         ],
         correctChoiceId:'c',
-        penalty:8,
+        penalty:5,
         wrongReason:'Some blood tests require specific requirements the patient should meet before collection such as fasting, medication timing, resting, etc. For example: Triglycerides are significantly affected by food intake.',
         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
         messageHotspots:[
@@ -273,7 +411,7 @@ const SECTIONS = [
           {id:'c', label:'Reschedule testing and ask the patient to meet the requirement correctly'}
         ],
         correctChoiceId:'c',
-        penalty:8,
+        penalty:5,
         wrongReason:'Extended fasting may alter glucose and other analytes. This falls under meeting testing requirements.',
         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
         messageHotspots:[
@@ -293,7 +431,7 @@ const SECTIONS = [
           {id:'c', label:'Reschedule testing '}
         ],
         correctChoiceId:'b',
-        penalty:8,
+        penalty:5,
         wrongReason:'Prolonged and extra tight tourniquet application causes hemoconcentration, intracellular component leaking, and possible hemolysis.',
         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
         messageHotspots:[
@@ -301,8 +439,7 @@ const SECTIONS = [
           {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'Tourniquet applied long'}
         ]
       }),
-
-      makeScenario({
+ makeScenario({
         id:'1-4',
         baseSrc:'case4basic.jpg',
         overlaySrc:'case3S.jpg',
@@ -313,7 +450,7 @@ const SECTIONS = [
           {id:'c', label:'Choosing another spot to restart the proses '}
         ],
         correctChoiceId:'b',
-        penalty:8,
+        penalty:5,
         wrongReason:'Touching cause contamination and  increases false positives.',
         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
         messageHotspots:[
@@ -322,7 +459,7 @@ const SECTIONS = [
         ]
       }),
 
-     makeScenario({
+      makeScenario({
         id:'1-5',
         baseSrc:'case5basic.jpg',
         overlaySrc:'case5S.jpg',
@@ -333,12 +470,12 @@ const SECTIONS = [
           {id:'c', label:'Chang nedal size to have good flow.'}
         ],
         correctChoiceId:'b',
-        penalty:8,
+        penalty:5,
         wrongReason:'The tubing of a butterfly set contains a small amount of air.If you fill the anaerobic bottle first, that air may enter it and affect the growth of anaerobic organisms.',
         overlayHotspots:[{imgLeft:47, imgTop:6, imgWidth:19, imgHeight:22}],
          messageHotspots:[
           {imgLeft:93, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the blood culture bottles.'},
-          {imgLeft:67, imgTop:20, imgWidth:10, imgHeight:15, title:'info.', body:'Aerobic bottle filled before anaerobic by using butterfly needle.'}
+          {imgLeft:65, imgTop:20, imgWidth:10, imgHeight:15, title:'info.', body:'Aerobic bottle filled before anaerobic by using butterfly needle.'}
         ]
 
       }),
@@ -354,7 +491,7 @@ const SECTIONS = [
           {id:'c', label:'Accepte sample since it already collect.'}
         ],
         correctChoiceId:'a',
-        penalty:8,
+        penalty:5,
         wrongReason:'Excessive agitation causes hemolysis.',
         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
         messageHotspots:[
@@ -376,7 +513,7 @@ const SECTIONS = [
 
         ],
         correctChoiceId:'a',
-        penalty:8,
+        penalty:5,
         wrongReason:'Fresh venipuncture ensures uncontaminated, reliable results.',
         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
          messageHotspots:[
@@ -386,8 +523,7 @@ const SECTIONS = [
 
       }),
 
-
-     makeScenario({
+      makeScenario({
         id:'1-8',
         baseSrc:'case8basic.jpg',
         overlaySrc:'case7S.jpg',
@@ -398,7 +534,7 @@ const SECTIONS = [
           {id:'c', label:'Reject and recollect from a site opposite to the cannula side.'}
         ],
         correctChoiceId:'c',
-        penalty:8,
+        penalty:5,
         wrongReason:'Fresh venipuncture ensures uncontaminated, reliable results.',
         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
          messageHotspots:[
@@ -417,8 +553,16 @@ const state = {
   sectionIndex:0, scenarioIndex:0,
   overlayOpenedCount:0,
   messageOpenedSet:new Set(),
-  answered:false
+  answered:false,
+  started:false
+
 };
+
+const startScreen = document.getElementById('startScreen');
+const startBtn = document.getElementById('startBtn');
+
+
+
 
 const scoreVal=document.getElementById('scoreVal');
 const remainVal=document.getElementById('remainVal');
@@ -664,7 +808,6 @@ function loadScenario(){
     baseEl.addEventListener('loadedmetadata', onReady, { once:true });
   }
 
-  // Overlay hotspots
   (scenario.overlayHotspots || []).forEach(h=>{
     const hs = makeHotspotByImageCoords(h);
     hs.addEventListener('click',()=>setOverlay(!overlay.classList.contains('active'), scenario.overlayMedia));
@@ -734,6 +877,7 @@ function goNext(){
 }
 
 
+
 overlayCloseBtn.addEventListener('click',()=>setOverlay(false));
 
 [ msgModal, feedbackModal, sectionModal ].forEach(modal => {
@@ -794,23 +938,25 @@ fsBtn.addEventListener('click', async()=>{
   }
 });
 
+startBtn.addEventListener('click', () => {
+  if (state.started) return;
+  state.started = true;
+  startScreen.classList.add('hidden');
+  loadScenario();
+  setTimeout(() => {
+    if (qTitle) qTitle.focus?.();
+    scrollQuestionIntoViewSmooth();
+  }, 80);
+});
+
 bindViewportResizeHandlers();
 setMediaWrapHeight();
-loadScenario();
+
+
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
 
 
 
