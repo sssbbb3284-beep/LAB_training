@@ -384,6 +384,26 @@ const SECTIONS = [
         ]
       }),
 
+      makeScenario({
+        id:'1-1',
+        baseSrc:'case1basic.jpg',
+        overlaySrc:'case1S.jpg',
+        question:'What is the correct action ?',
+        choices:[
+          {id:'a', label:'Collect the sample.'},
+          {id:'b', label:'Collect the sample with a comment.'},
+          {id:'c', label:'Reschedule after 8-12 hours of fasting.'}
+        ],
+        correctChoiceId:'c',
+        penalty:5,
+        wrongReason:'Some blood tests require specific requirements the patient should meet before collection such as fasting, medication timing, resting, etc. For example: Triglycerides are significantly affected by food intake.',
+        overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
+        messageHotspots:[
+          {imgLeft:92, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
+          {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'The patient ate two hours ago.'}
+        ]
+      }),
+
 
       makeScenario({
         id:'1-8',
