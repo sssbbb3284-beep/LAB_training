@@ -871,14 +871,20 @@ function checkAnswer(){
 }
 
 function goNext(){
-  const sec=SECTIONS[state.sectionIndex];
-  if(state.scenarioIndex < sec.scenarios.length-1){
+  const sec = SECTIONS[state.sectionIndex];
+
+  if(state.scenarioIndex < sec.scenarios.length - 1){
     state.scenarioIndex++;
     loadScenario();
-  }else{
-    sectionTitle.textContent=`OPD ${sec.title} completed`;
-    sectionBody.textContent='Moving to the next OPD...';
+    return;
+  }
+
+  if(state.sectionIndex < SECTIONS.length - 1){
+    sectionTitle.textContent = `OPD ${sec.title} completed`;
+    sectionBody.textContent = 'Moving to the next OPD...';
     sectionModal.classList.add('active');
+  } else {
+    showToast('All sections completed ✅');
   }
 }
 
