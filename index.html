@@ -877,9 +877,12 @@ function goNext(){
 }
 
 
-document.getElementById('startDesc').textContent =
-  'A collaborative project designed and developed by Taibah University students in cooperation with the OPD and Receiving Laboratory Department at Prince Mohammed Bin Abdulaziz National Guard Hospital, Medina.';
-
+document.getElementById('startDesc').textContent = `
+A collaborative project designed and developed by Taibah 
+University students in cooperation with the OPD and Receiving 
+Laboratory Department at Prince Mohammed Bin Abdulaziz 
+National Guard Hospital, Medina.
+`.trim();
   
 overlayCloseBtn.addEventListener('click',()=>setOverlay(false));
 
