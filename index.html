@@ -365,25 +365,6 @@ const SECTIONS = [
     scenarios:[
          
 
- makeScenario({
-        id:'1-0', 
-        baseSrc:'case1basic.jpg',
-        overlaySrc:'case3S.jpg',
-        question:'What is the correct action ?',
-        choices:[
-          {id:'a', label:'Accept'},
-          {id:'b', label:'Reject'},
-        ],
-        correctChoiceId:'b', 
-        penalty:5,
-        wrongReason:'Misidentification is a critical patient safety error.',
-        overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
-        messageHotspots:[
-          {imgLeft:92, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
-          {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'The patient said his name was Mohammed and he was 65 years old.'}
-        ]
-      }),
-
 
 
       makeScenario({
