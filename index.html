@@ -224,8 +224,8 @@ justify-content: center;
 <!-- Start / Landing Screen -->
 <div id="startScreen" class="start-screen" role="dialog" aria-modal="true" aria-labelledby="startTitle">
   <div class="start-box">
-    <h1 id="startTitle" class="start-title">preanalytical phase overview</h1>
-    <p class="start-desc">A collaboration project designed and developed between Taibah university students & the department of OPD & Receiving lab at prince Mohammed Bin Abdullaziz National Guard hospital, Madina</p>
+    <h1 id="startTitle" class="start-title">Preanalytical Phase Overview</h1>
+    <p class="start-desc">A collaborative project designed and developed by Taibah University students in cooperation with the OPD and Receiving Laboratory Department at Prince Mohammed Bin Abdulaziz National Guard Hospital, Medina.</p>
 
     <div class="start-actions">
       <button id="startBtn" type="button" aria-label="start traning">start</button>
@@ -386,9 +386,9 @@ const SECTIONS = [
         overlaySrc:'case1S.jpg',
         question:'What is the correct action ?',
         choices:[
-          {id:'a', label:'collect the sample'},
-          {id:'b', label:'collect the sample with comment'},
-          {id:'c', label:'Reschedule for 8-12 hours fasting'}
+          {id:'a', label:'Collect the sample.'},
+          {id:'b', label:'Collect the sample with a comment.'},
+          {id:'c', label:'Reschedule after 8-12 hours of fasting.'}
         ],
         correctChoiceId:'c',
         penalty:5,
@@ -406,8 +406,8 @@ const SECTIONS = [
         overlaySrc:'case2S.jpg',
         question:'What is the correct action ?',
         choices:[
-          {id:'a', label:'collect the sample'},
-          {id:'b', label:'collect the sample with comment'},
+          {id:'a', label:'Collect the sample.'},
+          {id:'b', label:'Collect the sample with a comment.'},
           {id:'c', label:'Reschedule testing and ask the patient to meet the requirement correctly'}
         ],
         correctChoiceId:'c',
@@ -445,9 +445,9 @@ const SECTIONS = [
         overlaySrc:'case3S.jpg',
         question:'What is the correct action ?',
         choices:[
-          {id:'a', label:'collect the sample since we already disinfection the skin'},
+          {id:'a', label:'collect the sample since we already disinfected the skin'},
           {id:'b', label:'re-perform without touching the puncture site'},
-          {id:'c', label:'Choosing another spot to restart the proses '}
+          {id:'c', label:'Choosing another spot to restart the process '}
         ],
         correctChoiceId:'b',
         penalty:5,
@@ -455,7 +455,7 @@ const SECTIONS = [
         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
         messageHotspots:[
           {imgLeft:90.8, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
-          {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'The patient scratched the area after it had been disinfection.'}
+          {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'The patient scratched the area after it had been disinfected.'}
         ]
       }),
 
@@ -466,8 +466,8 @@ const SECTIONS = [
         question:'What is the correct action ?',
         choices:[
           {id:'a', label:'Correct action, we will complete the process.'},
-          {id:'b', label:'Wrong action, we must fell aerobic bottle before anaerobic.'},
-          {id:'c', label:'Chang nedal size to have good flow.'}
+          {id:'b', label:'Incorrect action: We must fill the anaerobic bottle before filling the aerobic bottle.'},
+          {id:'c', label:'Change the needle size to have a good flow.'}
         ],
         correctChoiceId:'a',
         penalty:5,
@@ -475,7 +475,7 @@ const SECTIONS = [
         overlayHotspots:[{imgLeft:47, imgTop:6, imgWidth:19, imgHeight:22}],
          messageHotspots:[
           {imgLeft:93, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the blood culture bottles.'},
-          {imgLeft:65, imgTop:20, imgWidth:10, imgHeight:15, title:'info.', body:'Aerobic bottle filled before anaerobic by using butterfly needle.'}
+          {imgLeft:65, imgTop:20, imgWidth:10, imgHeight:15, title:'info.', body:'The aerobic bottle is filled before the anaerobic one by using a butterfly needle.'}
         ]
 
       }),
@@ -488,7 +488,7 @@ const SECTIONS = [
         choices:[
           {id:'a', label:'Reject if affected. Gently invert the tube 3-5 times.'},
           {id:'b', label:'Centrifuge sample immediately to save it.'},
-          {id:'c', label:'Accepte sample since it already collect.'}
+          {id:'c', label:'Accept the sample since it's already collected.'}
         ],
         correctChoiceId:'a',
         penalty:5,
@@ -496,7 +496,7 @@ const SECTIONS = [
         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
         messageHotspots:[
           {imgLeft:93, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and Tubes.'},
-          {imgLeft:62, imgTop:20, imgWidth:10, imgHeight:15, title:'info.', body:'Tubes were shaken aggressively.'}
+          {imgLeft:62, imgTop:20, imgWidth:10, imgHeight:15, title:'info.', body:'The tube was shaken aggressively.'}
         ]
 
       }),
@@ -507,8 +507,8 @@ const SECTIONS = [
         overlaySrc:'case7S.jpg',
         question:'What is the correct action ?',
         choices:[
-          {id:'a', label:'Wrong proseger, need Perform a fresh venipuncture.'},
-          {id:'b', label:'Accepting the sample and sending it to the lab.'},
+          {id:'a', label:'Wrong procedure; need to perform a fresh venipuncture.'},
+          {id:'b', label:'Accept the sample and send it to the lab.'},
           {id:'c', label:'Add a comment to the sample label with a pen.'}
 
         ],
@@ -518,7 +518,7 @@ const SECTIONS = [
         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
          messageHotspots:[
           {imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
-          {imgLeft:60, imgTop:26, imgWidth:30, imgHeight:65, title:'info.', body:'Drawing blood from an existing cannula.'}
+          {imgLeft:60, imgTop:26, imgWidth:30, imgHeight:65, title:'info.', body:'Blood has been drawn from an existing cannula.'}
         ]
 
       }),
@@ -529,7 +529,7 @@ const SECTIONS = [
         overlaySrc:'case7S.jpg',
         question:'What is the correct action ?',
         choices:[
-           {id:'a', label:'Sending it to the lab.'},
+           {id:'a', label:'Send it to the lab.'},
           {id:'b', label:'Reject the sample and recollect it after removing the IV bag.'},
           {id:'c', label:'Reject and recollect from a site opposite to the cannula side.'}
         ],
