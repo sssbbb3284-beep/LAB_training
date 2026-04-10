@@ -365,6 +365,26 @@ const SECTIONS = [
     scenarios:[
 
 
+      makeScenario({
+        id:'1-6',
+        baseSrc:'case6basic.jpg',
+        overlaySrc:'case6S.jpg',
+        question:'What is the correct action ?',
+        choices:[
+          {id:'a', label:'Reject if affected. Gently invert the tube 3-5 times.'},
+          {id:'b', label:'Centrifuge sample immediately to save it.'},
+          {id:'c', label:'Accept the sample since it's already collected.'}
+        ],
+        correctChoiceId:'a',
+        penalty:5,
+        wrongReason:'Excessive agitation causes hemolysis.',
+        overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
+        messageHotspots:[
+          {imgLeft:93, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and Tubes.'},
+          {imgLeft:62, imgTop:20, imgWidth:10, imgHeight:15, title:'info.', body:'The tube was shaken aggressively.'}
+        ]
+
+      }),
 
 
       makeScenario({
