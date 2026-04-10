@@ -396,34 +396,12 @@ const SECTIONS = [
         ],
         correctChoiceId:'c',
         penalty:5,
-        wrongReason:'Some blood tests require specific requirements the patient should meet before collection such as fasting medication timing resting etc. For example Triglycerides are significantly affected by food intake.',
+        wrongReason:'Some blood tests require specific requirements the patient should meet before collection such as fasting, medication timing , resting etc. For example: Triglycerides are significantly affected by food intake.',
         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
         messageHotspots:[
           {imgLeft:92, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
           {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'The patient ate two hours ago.'}
         ]
-      }),
-
-
-      makeScenario({
-        id:'1-8',
-        baseSrc:'case8basic.jpg',
-        overlaySrc:'case7S.jpg',
-        question:'What is the correct action ?',
-        choices:[
-           {id:'a', label:'Send it to the lab.'},
-          {id:'b', label:'Reject the sample and recollect it after removing the IV bag.'},
-          {id:'c', label:'Reject and recollect from a site opposite to the cannula side.'}
-        ],
-        correctChoiceId:'c',
-        penalty:5,
-        wrongReason:'Fresh venipuncture ensures uncontaminated, reliable results.',
-        overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
-         messageHotspots:[
-          {imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
-          {imgLeft:60, imgTop:26, imgWidth:30, imgHeight:65, title:'info.', body:'The sample was collected from the same hand holding the IV bag, holding the active IV bag.'}
-        ]
-
       })
 
     ]
