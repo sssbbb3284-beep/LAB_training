@@ -480,7 +480,6 @@ function makeScenario({
   requireOverlay=true,
   requiredMessageCount=1,
 
-  /* ✅ إضافات جديدة */
   requiredMessageKeys = [],
   requiredImageCount = 0,
 
@@ -502,7 +501,6 @@ function makeScenario({
       requireOverlay,
       requiredMessageCount,
 
-      /* ✅ جديدة */
       requiredMessageKeys,
       requiredImageCount
     }
@@ -521,7 +519,6 @@ function makeAdvancedScenario({
   penalty = 5,
   wrongReason,
 
-  /* ✅ إضافات جديدة */
   requiredMessageKeys = [],
   requiredImageCount = 0
 }) {
@@ -808,10 +805,11 @@ makeAdvancedScenario({
           { type:"secondImage", imgLeft:12, imgTop:45, imgWidth:27, imgHeight:20 , imageSrc:"case11T.jpg" }
         ],
 
-        secondImage:"case10T.jpg",
+        secondImage:"case11T.jpg",
         secondHotspots:[
           { type:"text", imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, text:"Click on the tube " },
-          { type:"image", imgLeft:50, imgTop:65, imgWidth:30, imgHeight:30, imageSrc:"case11U.jpg" }
+          { type:"image", imgLeft:50, imgTop:65, imgWidth:30, imgHeight:30, imageSrc:"case11U.jpg" },
+          { type:"text", imgLeft:25, imgTop:65, imgWidth:20, imgHeight:20, text:"A small amount of blood in the tube"}
           
         ],
 
