@@ -30,196 +30,312 @@ body{
   background:radial-gradient(1400px 900px at 15% -10%, #1f2937 0%, #0f172a 40%, #0b1224 100%) fixed;
 }
 
-.app{min-height:100dvh; display:flex; flex-direction:column; gap:12px; padding:14px; padding-top:calc(14px + var(--safe-top)); padding-bottom:calc(14px + var(--safe-bottom));}
+.app{
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  padding:14px;
+  padding-top:calc(14px + var(--safe-top));
+  padding-bottom:calc(14px + var(--safe-bottom));
+}
 
 header.appbar{
-  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap;
-  gap:10px; max-width:var(--maxw); margin:0 auto;
-  padding:10px 14px; background:linear-gradient(180deg,#0b1220,#0a1322);
-  border:1px solid #1f2937; border-radius:var(--radius);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:10px;
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:10px 14px;
+  background:linear-gradient(180deg,#0b1220,#0a1322);
+  border:1px solid #1f2937;
+  border-radius:var(--radius);
   box-shadow:0 8px 24px rgba(0,0,0,.25);
-  position:sticky; top:8px; z-index:50; backdrop-filter:blur(6px);
+  position:sticky;
+  top:8px;
+  z-index:50;
+  backdrop-filter:blur(6px);
 }
 
 .pill{
-  background:#0b1220; border:1px solid #243041; border-radius:999px;
-  padding:6px 10px; font-size:13px; color:var(--muted);
+  background:#0b1220;
+  border:1px solid #243041;
+  border-radius:999px;
+  padding:6px 10px;
+  font-size:13px;
+  color:var(--muted);
 }
 
 .val{font-weight:700; color:#a7f3d0;}
+
 .btn{
-  appearance:none; border:none; cursor:pointer;
-  font-weight:600; font-size:13px;
-  padding:8px 12px; border-radius:10px;
-  background:#0e1a30; color:#e5e7eb; border:1px solid #1f2937;
+  appearance:none;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  font-size:13px;
+  padding:8px 12px;
+  border-radius:10px;
+  background:#0e1a30;
+  color:#e5e7eb;
+  border:1px solid #1f2937;
 }
 
 .stage{
-  background:#0a1220; border:1px solid #1f2937; border-radius:var(--radius);
-  overflow:hidden; box-shadow:0 12px 32px rgba(0,0,0,.28);
-  max-width:var(--maxw); margin:0 auto; width:100%;
+  background:#0a1220;
+  border:1px solid #1f2937;
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:0 12px 32px rgba(0,0,0,.28);
+  max-width:var(--maxw);
+  margin:0 auto;
+  width:100%;
 }
 
 .media-wrap{
-  position:relative; width:100%;
-  background:#0b1220; overflow:hidden;
+  position:relative;
+  width:100%;
+  background:#0b1220;
+  overflow:hidden;
 }
-.base-media{width:100%; height:100%; object-fit:contain; display:block;}
+
+.base-media{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
 
 .overlay-media{
-  position:absolute; inset:0; display:none;
-  align-items:center; justify-content:center;
-  background:transparent; z-index:6;
+  position:absolute;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:transparent;
+  z-index:6;
 }
+
 .overlay-media.active{display:flex;}
-.overlay-media img, .overlay-media video{width:100%; height:100%; object-fit:contain;}
+
+.overlay-media img,
+.overlay-media video{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
 
 .overlay-close{
-  position:absolute; top:10px; left:10px;
-  background:rgba(0,0,0,.5); border:1px solid #374151; color:white;
-  border-radius:10px; padding:6px 10px; cursor:pointer; z-index:7;
+  position:absolute;
+  top:10px;
+  left:10px;
+  background:rgba(0,0,0,.5);
+  border:1px solid #374151;
+  color:white;
+  border-radius:10px;
+  padding:6px 10px;
+  cursor:pointer;
+  z-index:7;
 }
 
+#advOverlay{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,.75);
+  z-index:200;
+  padding:14px;
+  backdrop-filter:blur(4px);
+}
+
+#advOverlay.active{
+  display:flex;
+}
+
+#advOverlay .overlay-close{
+  position:absolute;
+  top:12px;
+  left:12px;
+  z-index:202;
+}
+
+/* hotspot */
 .hotspot{
-  position:absolute; z-index:5; border:none;
-  background:transparent; pointer-events:auto;
+  position:absolute;
+  z-index:5;
+  border:none;
+  background:transparent;
+  pointer-events:auto;
 }
 
-.panel{padding:14px; border-top:1px solid #1f2937; background:#0b1324;}
+.panel{
+  padding:14px;
+  border-top:1px solid #1f2937;
+  background:#0b1324;
+}
 
-.question{display:none; background:#0b1220; border:1px solid #1f2937;
-          border-radius:12px; padding:14px;}
+.question{
+  display:none;
+  background:#0b1220;
+  border:1px solid #1f2937;
+  border-radius:12px;
+  padding:14px;
+}
+
 .question.active{display:block;}
 
 .opt{
-  display:flex; align-items:flex-start; gap:10px;
-  border:1px solid #223047; background:#091226;
-  padding:10px; border-radius:10px; min-width:220px;
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  border:1px solid #223047;
+  background:#091226;
+  padding:10px;
+  border-radius:10px;
+  min-width:220px;
 }
 
-.options{display:flex; flex-wrap:wrap; gap:10px;}
-
-.modal{position:fixed; inset:0; display:none;
-       align-items:center; justify-content:center;
-       background:var(--overlay-bg); z-index:80; padding:14px;}
-.modal.active{display:flex;}
-
-.toast{position:fixed; right:14px; bottom:14px; background:#0b1324;
-       border:1px solid #1f2937; color:white; padding:10px 12px;
-       border-radius:10px; display:none;}
-.toast.show{display:block;}
-
-
-.start-screen {
-  position: fixed;
-  inset: 0;
-  z-index: 120; 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  background: radial-gradient(1400px 900px at 15% -10%, #0f172a 0%, #0b1224 60%, #08101e 100%);
+.options{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
 }
 
-.start-screen::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: center/contain no-repeat url('logo.png'); 
-  opacity: 0.08; 
-  pointer-events: none;
+.modal{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:var(--overlay-bg);
+  z-index:80;
+  padding:14px;
 }
 
-.start-box {
-  position: relative;
-  max-width: min(920px, 90vw);
-  width: 100%;
-  background: rgba(10, 18, 32, 0);
-  border: 1px solid #1f2937;
-  border-radius: var(--radius);
-  box-shadow: 0 18px 50px rgba(0,0,0,.38);
-  padding: clamp(16px, 2.6vw, 28px);
-  backdrop-filter: blur(8px);
-  color: var(--text);
- text-align: center;
+.modal.active{
+  display:flex;
 }
 
-.start-title {
-  margin: 0 0 8px 0;
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: .2px;
-  font-size: clamp(28px, 5vw, 44px);
-  text-shadow: 0 2px 6px rgba(0,0,0,.55);
-}
-.start-desc {
-  margin: 0 0 16px 0;
-  color: #d1d5db;
-  font-size: clamp(14px, 2.5vw, 18px);
-  line-height: 1.6;
-  text-shadow: 0 1px 4px rgba(0,0,0,.5);
+.toast{
+  position:fixed;
+  right:14px;
+  bottom:14px;
+  background:#0b1324;
+  border:1px solid #1f2937;
+  color:white;
+  padding:10px 12px;
+  border-radius:10px;
+  display:none;
 }
 
-.start-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 10px 0 14px 0;
-justify-content: center;
-}
-#startBtn {
-  appearance: none;
-  border: 1px solid #065f46;
-  background: linear-gradient(180deg, #047857, #065f46);
-  color: #ecfdf5;
-  padding: 12px 18px;
-  border-radius: 12px;
-  font-weight: 800;
-  font-size: clamp(14px, 2.6vw, 16px);
-  cursor: pointer;
-  box-shadow: 0 8px 24px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.06);
-}
-#startBtn:active { transform: translateY(1px); }
-
-.start-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-  margin-top: 10px;
-}
-@media (min-width: 720px) {
-  .start-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
-}
-.start-card {
-  background: rgba(9, 18, 38, 0.66);
-  border: 1px solid #223047;
-  border-radius: var(--radius-sm);
-  padding: 12px;
-  color: #e5e7eb;
-  line-height: 1.7;
-  font-size: clamp(13px, 2.2vw, 15px);
-  text-shadow: 0 1px 4px rgba(0,0,0,.5);
+.toast.show{
+  display:block;
 }
 
-.start-card strong, .start-title, .start-desc {
-  text-shadow:
-    0 2px 6px rgba(0,0,0,.55),
-    0 0 1px rgba(0,0,0,.35);
+.start-screen{
+  position:fixed;
+  inset:0;
+  z-index:120;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:radial-gradient(1400px 900px at 15% -10%, #0f172a 0%, #0b1224 60%, #08101e 100%);
 }
 
-.start-screen.hidden { display: none; }
-
-#startBtn:focus-visible {
-  outline: 3px solid #22c55e;
-  outline-offset: 2px;
+.start-screen::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:center/contain no-repeat url('logo.png');
+  opacity:0.08;
+  pointer-events:none;
 }
 
+.start-box{
+  position:relative;
+  max-width:min(920px,90vw);
+  width:100%;
+  background:rgba(10,18,32,0);
+  border:1px solid #1f2937;
+  border-radius:var(--radius);
+  box-shadow:0 18px 50px rgba(0,0,0,.38);
+  padding:clamp(16px,2.6vw,28px);
+  backdrop-filter:blur(8px);
+  color:var(--text);
+  text-align:center;
+}
+
+.start-title{
+  margin:0 0 8px 0;
+  font-weight:800;
+  line-height:1.15;
+  font-size:clamp(28px,5vw,44px);
+}
+
+.start-desc{
+  margin:0 0 16px 0;
+  color:#d1d5db;
+  font-size:clamp(14px,2.5vw,18px);
+  line-height:1.6;
+}
+
+.start-actions{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:10px 0 14px 0;
+  justify-content:center;
+}
+
+#startBtn{
+  appearance:none;
+  border:1px solid #065f46;
+  background:linear-gradient(180deg,#047857,#065f46);
+  color:#ecfdf5;
+  padding:12px 18px;
+  border-radius:12px;
+  font-weight:800;
+  font-size:clamp(14px,2.6vw,16px);
+  cursor:pointer;
+  box-shadow:0 8px 24px rgba(0,0,0,.25),
+             inset 0 1px 0 rgba(255,255,255,.06);
+}
+
+.start-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:12px;
+  margin-top:10px;
+}
+
+@media(min-width:720px){
+  .start-grid{
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+  }
+}
+
+.start-card{
+  background:rgba(9,18,38,0.66);
+  border:1px solid #223047;
+  border-radius:var(--radius-sm);
+  padding:12px;
+  color:#e5e7eb;
+  font-size:clamp(13px,2.2vw,15px);
+  line-height:1.7;
+}
+
+.start-screen.hidden{
+  display:none;
+}
 </style>
-
 </head>
 <body>
-
-
 <div class="app">
 <!-- Start / Landing Screen -->
 <div id="startScreen" class="start-screen" role="dialog" aria-modal="true" aria-labelledby="startTitle">
@@ -232,24 +348,24 @@ Laboratory Department at Prince Mohammed Bin Abdulaziz
 National Guard Hospital, Medina.
     </p>
 
-
     <div class="start-actions">
-      <button id="startBtn" type="button" aria-label="start traning">start</button>
+      <button id="startBtn" type="button" aria-label="start training">start</button>
     </div>
 
     <div class="start-grid" dir="auto">
       <div class="start-card">
-        <p style="margin:0;">
-          <strong>Developed by students from the College of Computer Science and Engineering:</strong><br>
-          sarah.<br>
-          susan.
+          <p style="margin:0; font-weight:700;">
+          <strong>Developed by Cybersecurity students from the College of Computer Science and Engineering:</strong><br>
+          <br>
+          
         </p>
       </div>
-      <div class="start-card">
-        <p style="margin:0;">
-          <strong>1</strong><br>
-          2<br>
-          3
+
+      <div class="start-card">            
+             <p style="margin:0; font-weight:700;">
+          <strong>Susan Sultan AL-Husseini --- (LinkIn)</strong><br>
+          Sarah Abdullah AL-Badrani --- (LinkIn)<br>
+          
         </p>
       </div>
     </div>
@@ -271,28 +387,34 @@ National Guard Hospital, Medina.
 <main>
 <section class="stage">
 
-<div id="mediaWrap" class="media-wrap">
-  <div id="overlay" class="overlay-media" role="dialog" aria-modal="true" aria-label="Overlay">
-    <button id="overlayCloseBtn" class="overlay-close" type="button">Close ×</button>
+  <div id="mediaWrap" class="media-wrap">
+    <img id="baseMedia" class="base-media" alt="">
+    <div id="overlay" class="overlay-media" role="dialog" aria-modal="true" aria-label="Overlay">
+      <button id="overlayCloseBtn" class="overlay-close" type="button">Close ×</button>
+    </div>
   </div>
-</div>
 
-<div class="panel">
+  <div class="panel">
+    <div id="questionBox" class="question" aria-live="polite">
+      <h3 id="qTitle">what the action</h3>
+      <div id="options" class="options"></div>
 
-<div id="questionBox" class="question" aria-live="polite">
-  <h3 id="qTitle">what the action </h3>
-  <div id="options" class="options"></div>
+      <div class="actions" style="margin-top:12px; display:flex; gap:10px;">
+        <button id="submitBtn"
+                class="btn"
+                style="background:#064e3b;border-color:#065f46;color:#d1fae5;"
+                type="button">
+          Answer
+        </button>
 
-  <div class="actions" style="margin-top:12px; display:flex; gap:10px;">
-    <button id="submitBtn" class="btn" style="background:#064e3b;border-color:#065f46;color:#d1fae5;" type="button">Answer</button>
-    <button id="skipBtn" class="btn" type="button">Continue</button>
+        <button id="skipBtn" class="btn" type="button">Continue</button>
+      </div>
+    </div>
   </div>
-</div>
 
-</div>
 </section>
 </main>
-</div>
+</div> 
 
 <div id="msgModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="msgTitle">
   <div class="box" style="background:#0a1220; padding:16px; border-radius:14px;">
@@ -319,14 +441,30 @@ National Guard Hospital, Medina.
     <h4 id="sectionTitle"></h4>
     <p id="sectionBody"></p>
     <div style="display:flex; justify-content:flex-end;">
-      <button id="sectionContinue" class="btn" style="background:#064e3b;" type="button">Continue</button>
+      <button id="sectionContinue" class="btn" style="background:#064e3b;" type="button">
+        Continue
+      </button>
     </div>
   </div>
 </div>
-
+<div id="finalModal" class="modal" role="dialog" aria-modal="true">
+  <div class="box" style="background:#0a1220; padding:16px; border-radius:14px; max-width:420px;">
+    <h4 id="finalTitle">🎉 Completed</h4>
+    <p id="finalBody"></p>
+    <div style="display:flex; justify-content:flex-end;">
+      <button id="finalClose" class="btn" style="background:#064e3b;" type="button">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
+<div id="advOverlay" class="overlay-media" role="dialog" aria-modal="true">
+  <button id="advOverlayClose" class="overlay-close" type="button">Close ×</button>
+</div>
 <script>
+
 
 function makeScenario({
   id,
@@ -341,6 +479,11 @@ function makeScenario({
   messageHotspots = [],
   requireOverlay=true,
   requiredMessageCount=1,
+
+  /* ✅ إضافات جديدة */
+  requiredMessageKeys = [],
+  requiredImageCount = 0,
+
   baseSrc,
   overlaySrc
 }){
@@ -355,16 +498,59 @@ function makeScenario({
     correctChoiceId,
     penalty,
     wrongReason,
-    gating:{requireOverlay, requiredMessageCount}
+    gating:{
+      requireOverlay,
+      requiredMessageCount,
+
+      /* ✅ جديدة */
+      requiredMessageKeys,
+      requiredImageCount
+    }
   };
 }
+
+function makeAdvancedScenario({
+  id,
+  baseSrc,
+  mainHotspots = [],
+  secondImage = null,
+  secondHotspots = [],
+  question,
+  choices,
+  correctChoiceId,
+  penalty = 5,
+  wrongReason,
+
+  /* ✅ إضافات جديدة */
+  requiredMessageKeys = [],
+  requiredImageCount = 0
+}) {
+  return {
+    id,
+    type: "advanced",
+    baseSrc,
+    mainHotspots,
+    secondImage,
+    secondHotspots,
+    question,
+    choices,
+    correctChoiceId,
+    penalty,
+    wrongReason,
+    gating:{
+      requiredMessageKeys,
+      requiredImageCount
+    }
+  };
+}
+
+
 
 const SECTIONS = [
   {
     title:'Area 1',
     scenarios:[
-         
- makeScenario({
+         makeScenario({
         id:'1-0', 
         baseSrc:'case1basic.jpg',
         overlaySrc:'case3S.jpg',
@@ -375,15 +561,19 @@ const SECTIONS = [
         ],
         correctChoiceId:'b', 
         penalty:5,
+        requiredMessageKeys:['patient_info'], 
+        requiredImageCount:1,                 
+
         wrongReason:'Misidentification is a critical patient safety error.',
         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
         messageHotspots:[
           {imgLeft:92, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
-          {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'The patient said his name was Mohammed and he was 65 years old.'}
+          {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'The patient said his name was Mohammed and he was 65 years old.', key:'patient_info'}
         ]
       }),
 
-         makeScenario({
+
+      makeScenario({
         id:'1-1',
         baseSrc:'case1basic.jpg',
         overlaySrc:'case1S.jpg',
@@ -391,15 +581,17 @@ const SECTIONS = [
         choices:[
           {id:'a', label:'Collect the sample.'},
           {id:'b', label:'Collect the sample with a comment.'},
-          {id:'c', label:'Reschedule after 8-12 hours of fasting.'},
+          {id:'c', label:'Reschedule after 8-12 hours of fasting.'}
         ],
         correctChoiceId:'c',
         penalty:5,
-        wrongReason:'Some blood tests require specific requirements the patient should meet before collection such as fasting, medication timing , resting etc. For example: Triglycerides are significantly affected by food intake.',
+        requiredMessageKeys:['patient_info'], 
+        requiredImageCount:1,
+        wrongReason:'Some blood tests require specific requirements the patient should meet before collection such as fasting, medication timing, resting, etc. For example: Triglycerides are significantly affected by food intake.',
         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
         messageHotspots:[
           {imgLeft:92, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
-          {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'The patient ate two hours ago.'}
+          {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'The patient ate two hours ago.',key:'patient_info'}
         ]
       }),
 
@@ -415,11 +607,13 @@ const SECTIONS = [
         ],
         correctChoiceId:'c',
         penalty:5,
+        requiredMessageKeys:['patient_info'], 
+        requiredImageCount:1,
         wrongReason:'Extended fasting may alter glucose and other analytes. This falls under meeting testing requirements.',
         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
         messageHotspots:[
           {imgLeft:90.8, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
-          {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'The patient ate 18 hours ago.'}
+          {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'The patient ate 18 hours ago.',key:'patient_info'}
         ]
       }),
 
@@ -435,14 +629,15 @@ const SECTIONS = [
         ],
         correctChoiceId:'b',
         penalty:5,
+        requiredMessageKeys:['patient_info'], 
+        requiredImageCount:1,
         wrongReason:'Prolonged and extra tight tourniquet application causes hemoconcentration, intracellular component leaking, and possible hemolysis.',
         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
         messageHotspots:[
           {imgLeft:90.8, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
-          {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'Tourniquet applied long'}
+          {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'Tourniquet applied long',key:'patient_info'}
         ]
       }),
-
  makeScenario({
         id:'1-4',
         baseSrc:'case4basic.jpg',
@@ -455,11 +650,13 @@ const SECTIONS = [
         ],
         correctChoiceId:'b',
         penalty:5,
+        requiredMessageKeys:['patient_info'], 
+        requiredImageCount:1,
         wrongReason:'Touching cause contamination and  increases false positives.',
         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
         messageHotspots:[
           {imgLeft:90.8, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
-          {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'The patient scratched the area after it had been disinfected.'}
+          {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'The patient scratched the area after it had been disinfected.',key:'patient_info'}
         ]
       }),
 
@@ -475,11 +672,13 @@ const SECTIONS = [
         ],
         correctChoiceId:'a',
         penalty:5,
+        requiredMessageKeys:['bottle_info'], 
+        requiredImageCount:1,
         wrongReason:'The tubing of a butterfly set contains a small amount of air.If you fill the anaerobic bottle first, that air may enter it and affect the growth of anaerobic organisms.',
         overlayHotspots:[{imgLeft:47, imgTop:6, imgWidth:19, imgHeight:22}],
          messageHotspots:[
           {imgLeft:93, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the blood culture bottles.'},
-          {imgLeft:65, imgTop:20, imgWidth:10, imgHeight:15, title:'info.', body:'The aerobic bottle is filled before the anaerobic one by using a butterfly needle.'}
+          {imgLeft:65, imgTop:20, imgWidth:10, imgHeight:15, title:'info.', body:'The aerobic bottle is filled before the anaerobic one by using a butterfly needle.',key:'bottle_info'}
         ]
 
       }),
@@ -493,18 +692,21 @@ const SECTIONS = [
           {id:'a', label:'Reject if affected. Gently invert the tube 3-5 times.'},
           {id:'b', label:'Centrifuge sample immediately to save it.'},
           {id:'c', label:'Accept the sample since it is already collected.'}
+
         ],
+
         correctChoiceId:'a',
         penalty:5,
+        requiredMessageKeys:['tube_info'], 
+        requiredImageCount:1,
         wrongReason:'Excessive agitation causes hemolysis.',
         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
         messageHotspots:[
           {imgLeft:93, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and Tubes.'},
-          {imgLeft:62, imgTop:20, imgWidth:10, imgHeight:15, title:'info.', body:'The tube was shaken aggressively.'}
+          {imgLeft:62, imgTop:20, imgWidth:10, imgHeight:15, title:'info.', body:'The tube was shaken aggressively.',key:'tube_info'}
         ]
 
       }),
-
 
       makeScenario({
         id:'1-7',
@@ -519,106 +721,194 @@ const SECTIONS = [
         ],
         correctChoiceId:'a',
         penalty:5,
+        requiredMessageKeys:['patient_info'], 
+        requiredImageCount:1,
         wrongReason:'Fresh venipuncture ensures uncontaminated, reliable results.',
         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
          messageHotspots:[
           {imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
-          {imgLeft:60, imgTop:26, imgWidth:30, imgHeight:65, title:'info.', body:'Blood has been drawn from an existing cannula.'}
+          {imgLeft:60, imgTop:26, imgWidth:30, imgHeight:65, title:'info.', body:'Blood has been drawn from an existing cannula.',key:'patient_info'}
         ]
 
       }),
-
 
       makeScenario({
         id:'1-8',
         baseSrc:'case8basic.jpg',
         overlaySrc:'case7S.jpg',
-        question:'What is the correct action ?',
+        question:'what the correct action ?',
         choices:[
-           {id:'a', label:'Send it to the lab.'},
+          {id:'a', label:'Send it to the lab.'},
           {id:'b', label:'Reject the sample and recollect it after removing the IV bag.'},
           {id:'c', label:'Reject and recollect from a site opposite to the cannula side.'}
         ],
         correctChoiceId:'c',
         penalty:5,
+        requiredMessageKeys:['patient_info'], 
+        requiredImageCount:1,
         wrongReason:'Fresh venipuncture ensures uncontaminated, reliable results.',
         overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
-         messageHotspots:[
+        messageHotspots:[
           {imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
-          {imgLeft:60, imgTop:26, imgWidth:30, imgHeight:65, title:'info.', body:'The sample was collected from the same hand holding the IV bag, holding the active IV bag.'}
+          {imgLeft:60, imgTop:26, imgWidth:30, imgHeight:65, title:'Info', body:'The sample was collected from the same hand holding the IV bag.',key:'patient_info'}
         ]
-
       })
+    ]
+  },
 
+  {
+    title:"Area 2",
+    scenarios:[
+      makeAdvancedScenario({
+        id:"2-0",
+        baseSrc:"case10basic.jpg",
+
+
+
+         
+  requiredMessageKeys:['label_error'], 
+  requiredImageCount:3,                
+
+        mainHotspots:[
+          { type:"text", imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, text:"Click on the computer and the table" },
+          { type:"image", imgLeft:62, imgTop:30, imgWidth:20, imgHeight:25, imageSrc:"case10C.jpg" },
+          { type:"secondImage", imgLeft:12, imgTop:45, imgWidth:27, imgHeight:20 , imageSrc:"case10T.jpg" }
+        ],
+
+        secondImage:"case10T.jpg",
+        secondHotspots:[
+          { type:"text", imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, text:"Click on the tube and the bag" },
+          { type:"image", imgLeft:50, imgTop:65, imgWidth:30, imgHeight:30, imageSrc:"case10U.jpg" },
+          { type:"text", imgLeft:25, imgTop:65, imgWidth:20, imgHeight:20, text:"There are two labels for diffrent patients " , key:"label_error"}
+        ],
+
+        question:"What is the correct action?",
+        choices:[
+          { id:"a", label:"Fixed and apply the labeles at sample" },
+          { id:"b", label:"Reject sample,and report it" },
+          { id:"c", label:"Reject sample , and throw it away" }
+        ],
+        correctChoiceId:"b",
+        penalty:5,
+        wrongReason:"Specimen misidentification cannot be corrected."
+      }),
+makeAdvancedScenario({
+        id:"2-1",
+        baseSrc:"case10basic.jpg",
+
+
+
+         
+  requiredMessageKeys:[], 
+  requiredImageCount:3,                
+
+        mainHotspots:[
+          { type:"text", imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, text:"Click on the computer and the table" },
+          { type:"image", imgLeft:62, imgTop:30, imgWidth:20, imgHeight:25, imageSrc:"case10C.jpg" },
+          { type:"secondImage", imgLeft:12, imgTop:45, imgWidth:27, imgHeight:20 , imageSrc:"case11T.jpg" }
+        ],
+
+        secondImage:"case10T.jpg",
+        secondHotspots:[
+          { type:"text", imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, text:"Click on the tube " },
+          { type:"image", imgLeft:50, imgTop:65, imgWidth:30, imgHeight:30, imageSrc:"case11U.jpg" }
+          
+        ],
+
+        question:"What is the correct action?",
+        choices:[
+          { id:"a", label:"Reject and recollect." },
+          { id:"b", label:"Accepte The Sample." },
+          { id:"c", label:"Running the test with comment about sample quantity." }
+        ],
+        correctChoiceId:"a",
+        penalty:5,
+        wrongReason:"Incorrect blood to anticoagulant ratio affect the test result as in our example it invalidates PT/PTT. Make sure the tubes are filled to the line, and this apply to all tubes except red and yellow tube."
+      })
     ]
   }
 ];
 
+
 const state = {
-  total:100, points:100,
-  sectionIndex:0, scenarioIndex:0,
+  total:100,
+  points:100,
+  sectionIndex:0,
+  scenarioIndex:0,
   overlayOpenedCount:0,
   messageOpenedSet:new Set(),
   answered:false,
-  started:false
-
+  started:false,
+openedMessageKeys:new Set(),
+openedImageCount:0
 };
 
 const startScreen = document.getElementById('startScreen');
-const startBtn = document.getElementById('startBtn');
+const startBtn     = document.getElementById('startBtn');
+
+const scoreVal     = document.getElementById('scoreVal');
+const remainVal    = document.getElementById('remainVal');
+const progressText = document.getElementById('progressText');
+
+const mediaWrap       = document.getElementById('mediaWrap');
+const overlay         = document.getElementById('overlay');
+const overlayCloseBtn = document.getElementById('overlayCloseBtn');
+
+const questionBox = document.getElementById('questionBox');
+const qTitle      = document.getElementById('qTitle');
+const optionsEl   = document.getElementById('options');
+const submitBtn   = document.getElementById('submitBtn');
+const skipBtn     = document.getElementById('skipBtn');
+
+const msgModal  = document.getElementById('msgModal');
+const msgTitle  = document.getElementById('msgTitle');
+const msgBody   = document.getElementById('msgBody');
+const msgClose  = document.getElementById('msgClose');
+
+const feedbackModal = document.getElementById('feedbackModal');
+const fbTitle       = document.getElementById('fbTitle');
+const fbBody        = document.getElementById('fbBody');
+const fbContinue    = document.getElementById('fbContinue');
+
+const sectionModal   = document.getElementById('sectionModal');
+const sectionTitle   = document.getElementById('sectionTitle');
+const sectionBody    = document.getElementById('sectionBody');
+const sectionContinue= document.getElementById('sectionContinue');
+
+const toastEl = document.getElementById('toast');
+const fsBtn   = document.getElementById('fsBtn');
+//////////////////////////////
+const finalModal = document.getElementById('finalModal');
+const finalBody  = document.getElementById('finalBody');
+const finalClose = document.getElementById('finalClose');
+
+overlayCloseBtn.addEventListener("click", () => {
+  setOverlay(false);
+});
 
 
-
-
-const scoreVal=document.getElementById('scoreVal');
-const remainVal=document.getElementById('remainVal');
-const progressText=document.getElementById('progressText');
-
-const mediaWrap=document.getElementById('mediaWrap');
-const overlay=document.getElementById('overlay');
-const overlayCloseBtn=document.getElementById('overlayCloseBtn');
-
-const questionBox=document.getElementById('questionBox');
-const qTitle=document.getElementById('qTitle');
-const optionsEl=document.getElementById('options');
-const submitBtn=document.getElementById('submitBtn');
-const skipBtn=document.getElementById('skipBtn');
-
-const msgModal=document.getElementById('msgModal');
-const msgTitle=document.getElementById('msgTitle');
-const msgBody=document.getElementById('msgBody');
-const msgClose=document.getElementById('msgClose');
-
-const feedbackModal=document.getElementById('feedbackModal');
-const fbTitle=document.getElementById('fbTitle');
-const fbBody=document.getElementById('fbBody');
-const fbContinue=document.getElementById('fbContinue');
-
-const sectionModal=document.getElementById('sectionModal');
-const sectionTitle=document.getElementById('sectionTitle');
-const sectionBody=document.getElementById('sectionBody');
-const sectionContinue=document.getElementById('sectionContinue');
-
-const toastEl=document.getElementById('toast');
-const fsBtn=document.getElementById('fsBtn'); 
 
 function showToast(msg){
-  toastEl.textContent=msg;
+  toastEl.textContent = msg;
   toastEl.classList.add('show');
-  setTimeout(()=>toastEl.classList.remove('show'),1800);
+  setTimeout(() => toastEl.classList.remove('show'), 1800);
 }
 
 function getCurrent(){
-  const section=SECTIONS[state.sectionIndex];
-  const scenario=section.scenarios[state.scenarioIndex];
+  const section  = SECTIONS[state.sectionIndex];
+  const scenario = section.scenarios[state.scenarioIndex];
   return {section, scenario};
 }
 
 function updateHeader(){
-  scoreVal.textContent=state.points;
-  remainVal.textContent=state.points;
-  let s=state.sectionIndex+1, sc=state.scenarioIndex+1;
-  progressText.textContent=`OPD ${s} — Case ${sc} of ${SECTIONS[state.sectionIndex].scenarios.length}`;
+  scoreVal.textContent  = state.points;
+  remainVal.textContent = state.points;
+
+  let s  = state.sectionIndex + 1;
+  let sc = state.scenarioIndex + 1;
+
+  progressText.textContent =
+    `OPD ${s} — Case ${sc} of ${SECTIONS[state.sectionIndex].scenarios.length}`;
 }
 
 function getViewportHeight() {
@@ -633,10 +923,11 @@ function setMediaWrapHeight() {
   const vpH = getViewportHeight();
   const headerH = header ? Math.round(header.getBoundingClientRect().height) : 0;
   const appPadding = 28;
-  const gapBetween = 12;
-  let available = vpH - headerH - appPadding - gapBetween;
+  const gap = 12;
+  let available = vpH - headerH - appPadding - gap;
   available = Math.max(280, available);
-  if (mediaWrap) mediaWrap.style.height = available + 'px';
+
+  mediaWrap.style.height = available + 'px';
 }
 
 function bindViewportResizeHandlers() {
@@ -650,46 +941,51 @@ function bindViewportResizeHandlers() {
 }
 
 function createMediaEl({type='image',src}){
-  let el = document.createElement(type==='video'?'video':'img');
-  el.src=src;
-  el.className='base-media';
-  if(type==='video') el.controls=true;
+  let el = document.createElement(type === 'video' ? 'video' : 'img');
+  el.src = src;
+  el.className = 'base-media';
+  if(type === 'video') el.controls = true;
   return el;
 }
 
 function createOverlayMediaEl({type='image',src}){
-  let el = document.createElement(type==='video'?'video':'img');
-  el.src=src;
-  if(type==='video') el.controls=true;
+  let el = document.createElement(type === 'video' ? 'video' : 'img');
+  el.src = src;
+  if(type === 'video') el.controls = true;
   return el;
 }
 
 let _allHotspots = [];
 
-function getDisplayedImageRect() {
-  const img = mediaWrap.querySelector('.base-media');
-  if (!img) return null;
+function getDisplayedImageRect(container, imgEl) {
+  if (!container || !imgEl) return null;
 
-  const wrapRect = mediaWrap.getBoundingClientRect();
+  const wrapRect = container.getBoundingClientRect();
   const wrapW = wrapRect.width;
   const wrapH = wrapRect.height;
 
-  const natW = img.naturalWidth || img.videoWidth || 0;
-  const natH = img.naturalHeight || img.videoHeight || 0;
-  if (!natW || !natH || !wrapW || !wrapH) return null;
+  const natW = imgEl.naturalWidth || imgEl.videoWidth || 0;
+  const natH = imgEl.naturalHeight || imgEl.videoHeight || 0;
+
+  if (!natW || !natH) return null;
 
   const scale = Math.min(wrapW / natW, wrapH / natH);
   const dispW = natW * scale;
   const dispH = natH * scale;
+
   const offsetX = (wrapW - dispW) / 2;
   const offsetY = (wrapH - dispH) / 2;
 
-  return { offsetX, offsetY, dispW, dispH, wrapW, wrapH };
+  return { offsetX, offsetY, dispW, dispH };
 }
 
 function positionHotspots() {
-  const rect = getDisplayedImageRect();
+  const img = mediaWrap.querySelector('.base-media');
+  if (!img) return;
+
+  const rect = getDisplayedImageRect(mediaWrap, img);
   if (!rect) return;
+
   const { offsetX, offsetY, dispW, dispH } = rect;
 
   _allHotspots.forEach(hs => {
@@ -698,48 +994,41 @@ function positionHotspots() {
     const iw = parseFloat(hs.dataset.imgWidth);
     const ih = parseFloat(hs.dataset.imgHeight);
 
-    const leftPx = offsetX + (ix/100) * dispW;
-    const topPx  = offsetY + (iy/100) * dispH;
-    const wPx    = (iw/100) * dispW;
-    const hPx    = (ih/100) * dispH;
-
-    hs.style.left   = leftPx + 'px';
-    hs.style.top    = topPx + 'px';
-    hs.style.width  = wPx + 'px';
-    hs.style.height = hPx + 'px';
+    hs.style.left   = offsetX + (ix / 100) * dispW + 'px';
+    hs.style.top    = offsetY + (iy / 100) * dispH + 'px';
+    hs.style.width  = (iw / 100) * dispW + 'px';
+    hs.style.height = (ih / 100) * dispH + 'px';
   });
 }
 
 function makeHotspotByImageCoords({imgLeft,imgTop,imgWidth,imgHeight}) {
   const hs = document.createElement('button');
   hs.className = 'hotspot';
+  hs.type = 'button';
+
   hs.dataset.imgLeft = imgLeft;
   hs.dataset.imgTop = imgTop;
   hs.dataset.imgWidth = imgWidth;
   hs.dataset.imgHeight = imgHeight;
-  hs.type = 'button';
 
-  hs.style.position = 'absolute';
-  hs.style.left = '0px';
-  hs.style.top = '0px';
-  hs.style.width = '0px';
-  hs.style.height = '0px';
   return hs;
 }
 
 function clearMedia(){
-  [...mediaWrap.children].forEach(ch=>{ if(ch!==overlay) ch.remove(); });
-  [...overlay.children].forEach(ch=>{ if(ch!==overlayCloseBtn) ch.remove(); });
+  [...mediaWrap.children].forEach(ch => {
+    if (ch !== overlay) ch.remove();
+  });
+
+  [...overlay.children].forEach(ch => {
+    if (ch !== overlayCloseBtn) ch.remove();
+  });
+
   overlay.classList.remove('active');
-  mediaWrap.classList.remove('dimmed');
 }
 
 function scrollQuestionIntoViewSmooth() {
   if (questionBox && questionBox.classList.contains('active')) {
-    questionBox.scrollIntoView({ behavior:'smooth', block:'start' });
-  } else {
-    const stage = document.querySelector('.stage');
-    if (stage) stage.scrollIntoView({ behavior:'smooth', block:'end' });
+    questionBox.scrollIntoView({behavior:'smooth', block:'start'});
   }
 }
 
@@ -749,99 +1038,269 @@ function setOverlay(open, spec){
       overlay.insertBefore(createOverlayMediaEl(spec), overlayCloseBtn.nextSibling);
     }
     overlay.classList.add('active');
-    mediaWrap.classList.add('dimmed');
     state.overlayOpenedCount++;
-    tryShowQuestion();
-  }else{
-    overlay.classList.remove('active');
-    mediaWrap.classList.remove('dimmed');
 
-    [...overlay.children].forEach(ch=>{
+    state.openedImageCount++; 
+    tryShowQuestion();
+  } else {
+    overlay.classList.remove('active');
+    [...overlay.children].forEach(ch => {
       if(ch !== overlayCloseBtn) ch.remove();
     });
   }
 }
 
-function openMessageModal(idx,title,body){
-  msgTitle.textContent=title;
-  msgBody.textContent=body;
+function openMessageModal(idx, title, body, key){
+  msgTitle.textContent = title;
+  msgBody.textContent  = body;
   msgModal.classList.add('active');
+
   state.messageOpenedSet.add(idx);
+  if(key) state.openedMessageKeys.add(key);
+
   tryShowQuestion();
 }
 
+
 function tryShowQuestion(){
-  const {scenario}=getCurrent();
-  const needOverlay=scenario.gating.requireOverlay;
-  const needMsg=scenario.gating.requiredMessageCount;
-  const okOverlay = !needOverlay || state.overlayOpenedCount>=1;
-  const okMsg = state.messageOpenedSet.size>=needMsg;
-  if(okOverlay && okMsg){
-    const wasInactive = !questionBox.classList.contains('active');
+  const {scenario} = getCurrent();
+  const gate = scenario.gating || {};
+
+  const requiredKeys = gate.requiredMessageKeys || [];
+  const requiredImages = gate.requiredImageCount || 0;
+
+  const okMessages =
+    requiredKeys.length === 0 ||
+    requiredKeys.every(k => state.openedMessageKeys.has(k));
+
+  const okImages =
+    state.openedImageCount >= requiredImages;
+
+  let okBasic = true;
+  if (scenario.type !== "advanced") {
+    const needOverlay = gate.requireOverlay;
+    const needMsg = gate.requiredMessageCount || 0;
+
+    const okOverlay = !needOverlay || state.overlayOpenedCount >= 1;
+    const okMsg = state.messageOpenedSet.size >= needMsg;
+
+    okBasic = okOverlay && okMsg;
+  }
+
+  if (okMessages && okImages && okBasic) {
+    const firstTime = !questionBox.classList.contains('active');
     questionBox.classList.add('active');
-    if (wasInactive) {
-      setTimeout(scrollQuestionIntoViewSmooth, 60);
+
+    if(firstTime){
+      setTimeout(scrollQuestionIntoViewSmooth, 80);
     }
   }
 }
 
 function loadScenario(){
   setMediaWrapHeight();
-  state.overlayOpenedCount=0;
+
+  state.overlayOpenedCount = 0;
   state.messageOpenedSet.clear();
-  state.answered=false;
+state.openedMessageKeys.clear();
+state.openedImageCount = 0;
 
+  state.answered = false;
+   
   _allHotspots = [];
-
   questionBox.classList.remove('active');
 
   clearMedia();
 
-  const {scenario}=getCurrent();
+  const {scenario} = getCurrent();
   updateHeader();
 
-  const baseEl = createMediaEl(scenario.baseMedia);
-  mediaWrap.insertBefore(baseEl, overlay);
+  const baseEl = document.createElement("img");
 
-  const onReady = () => { positionHotspots(); };
-  if (baseEl.tagName === 'IMG') {
-    if (baseEl.complete) {
-      onReady();
-    } else {
-      baseEl.addEventListener('load', onReady, { once:true });
-    }
-  } else if (baseEl.tagName === 'VIDEO') {
-    baseEl.addEventListener('loadedmetadata', onReady, { once:true });
-  }
-
-  (scenario.overlayHotspots || []).forEach(h=>{
-    const hs = makeHotspotByImageCoords(h);
-    hs.addEventListener('click',()=>setOverlay(!overlay.classList.contains('active'), scenario.overlayMedia));
-    mediaWrap.appendChild(hs);
-    _allHotspots.push(hs);
-  });
-
-  // Message hotspots
-  (scenario.messageHotspots || []).forEach((m,i)=>{
-    const hs = makeHotspotByImageCoords(m);
-    hs.addEventListener('click',()=>openMessageModal(i,m.title,m.body));
-    mediaWrap.appendChild(hs);
-    _allHotspots.push(hs);
-  });
-
-  qTitle.textContent=scenario.question;
-  renderOptions(scenario.choices);
-
-  requestAnimationFrame(positionHotspots);
+if (scenario.type === "advanced") {
+    // ODP2
+    baseEl.src = scenario.baseSrc;
+} else {
+    // ODP1
+    baseEl.src = scenario.baseMedia.src;
 }
 
+baseEl.className = "base-media";
+mediaWrap.insertBefore(baseEl, overlay);
+
+baseEl.onload = () => positionHotspots();
+  baseEl.className = "base-media";
+
+  mediaWrap.insertBefore(baseEl, overlay);
+
+  baseEl.onload = () => positionHotspots();
+
+  if (scenario.type === "advanced") {
+    loadAdvancedHotspots(scenario);
+  } else {
+    loadBasicHotspots(scenario);
+  }
+
+  qTitle.textContent = scenario.question;
+  renderOptions(scenario.choices);
+}
+
+function loadBasicHotspots(scenario){
+  (scenario.messageHotspots || []).forEach((m,i) => {
+    const hs = makeHotspotByImageCoords(m);
+    hs.addEventListener("click", () => openMessageModal(i, m.title, m.body, m.key));
+    mediaWrap.appendChild(hs);
+    _allHotspots.push(hs);
+  });
+
+  (scenario.overlayHotspots || []).forEach(h => {
+    const hs = makeHotspotByImageCoords(h);
+    hs.addEventListener("click", () => setOverlay(true, scenario.overlayMedia));
+    mediaWrap.appendChild(hs);
+    _allHotspots.push(hs);
+  });
+}
+
+function loadAdvancedHotspots(scenario) {
+
+  scenario.mainHotspots.forEach(h => {
+    const hs = makeHotspotByImageCoords(h);
+
+    if (h.type === "text") {
+      hs.addEventListener("click", () => pushOverlayContent("text", { text: h.text }));
+    }
+
+    if (h.type === "image") {
+      hs.addEventListener("click", () => pushOverlayContent("image", { src: h.imageSrc }));
+    }
+
+    if (h.type === "secondImage") {
+      hs.addEventListener("click", () =>
+        pushOverlayContent("secondImage", {
+          src: scenario.secondImage,
+          hotspots: scenario.secondHotspots
+        })
+      );
+    }
+
+    mediaWrap.appendChild(hs);
+    _allHotspots.push(hs);
+  });
+}
+
+
+const advOverlay = document.getElementById("advOverlay");
+const advOverlayClose = document.getElementById("advOverlayClose");
+
+let overlayStack = [];
+
+function renderOverlayTop() {
+  [...advOverlay.children].forEach(el => {
+    if (el !== advOverlayClose) el.remove();
+  });
+
+  if (overlayStack.length === 0) {
+    advOverlay.classList.remove("active");
+    return;
+  }
+
+  advOverlay.classList.add("active");
+
+  const top = overlayStack[overlayStack.length - 1];
+
+  if (top.type === "text") {
+    const box = document.createElement("div");
+    box.style.color = "white";
+    box.style.background = "rgba(0,0,0,0.7)";
+    box.style.padding = "14px";
+    box.style.borderRadius = "12px";
+    box.style.maxWidth = "80%";
+    box.style.maxHeight = "70%";
+    box.style.overflow = "auto";
+    box.innerHTML = top.data.text;
+
+    advOverlay.appendChild(box);
+    return;
+  }
+
+  if (top.type === "image") {
+    const img = document.createElement("img");
+    img.src = top.data.src;
+    img.style.width = "100%";
+    img.style.height = "100%";
+    img.style.objectFit = "contain";
+
+    advOverlay.appendChild(img);
+    return;
+  }
+
+  if (top.type === "secondImage") {
+    const img = document.createElement("img");
+    img.src = top.data.src;
+    img.className = "base-media";
+    advOverlay.appendChild(img);
+
+    img.onload = () => {
+      const rect = getDisplayedImageRect(advOverlay, img);
+
+      top.data.hotspots.forEach(h => {
+        const hs = makeHotspotByImageCoords(h);
+
+        if (rect) {
+          hs.style.left = rect.offsetX + (h.imgLeft / 100) * rect.dispW + "px";
+          hs.style.top  = rect.offsetY + (h.imgTop  / 100) * rect.dispH + "px";
+          hs.style.width  = (h.imgWidth  / 100) * rect.dispW + "px";
+          hs.style.height = (h.imgHeight / 100) * rect.dispH + "px";
+        }
+
+        if (h.type === "text") {
+          hs.addEventListener("click", () =>
+  pushOverlayContent("text", { text: h.text, key: h.key })
+);
+
+        }
+
+        if (h.type === "image") {
+          hs.addEventListener("click", () => pushOverlayContent("image", { src: h.imageSrc }));
+        }
+
+        advOverlay.appendChild(hs);
+      });
+    };
+
+    return;
+  }
+}
+
+function pushOverlayContent(type, data) {
+  overlayStack.push({ type, data });
+
+  if (type === "image" || type === "secondImage") {
+    state.openedImageCount++;
+  }
+
+  if (type === "text" && data.key) {
+    state.openedMessageKeys.add(data.key);
+  }
+
+  renderOverlayTop();
+  tryShowQuestion();
+}
+
+
+advOverlayClose.addEventListener("click", () => {
+  overlayStack.pop();
+  renderOverlayTop();
+});
+</script>
+<script>
 function renderOptions(choices){
-  optionsEl.innerHTML='';
-  choices.forEach(ch=>{
-    const wrap=document.createElement('div');
-    wrap.className='opt';
-    const id=`opt_${ch.id}`;
-    wrap.innerHTML=`
+  optionsEl.innerHTML = '';
+  choices.forEach(ch => {
+    const wrap = document.createElement('div');
+    wrap.className = 'opt';
+    const id = `opt_${ch.id}`;
+    wrap.innerHTML = `
       <input type="radio" name="answer" id="${id}" value="${ch.id}">
       <label for="${id}">${ch.label}</label>
     `;
@@ -849,23 +1308,32 @@ function renderOptions(choices){
   });
 }
 
+finalClose.addEventListener('click', () => {
+  finalModal.classList.remove('active');
+});
+
 function checkAnswer(){
-  const {scenario}=getCurrent();
-  const sel=document.querySelector('input[name="answer"]:checked');
-  if(!sel){ showToast('Choose the answer first'); return; }
+  const { scenario } = getCurrent();
+  const sel = document.querySelector('input[name="answer"]:checked');
 
-  let correct = sel.value===scenario.correctChoiceId;
-
-  if(correct){
-    fbTitle.textContent='Correct ✔️';
-    fbBody.textContent='Well done.';
-  }else{
-    state.points = Math.max(0, state.points - scenario.penalty);
-    fbTitle.textContent='Incorrect ✖️';
-    fbBody.textContent=scenario.wrongReason + `\n\n...discount ${scenario.penalty} Points.`;
+  if (!sel) {
+    showToast('Choose the answer first');
+    return;
   }
 
-  state.answered=true;
+  let correct = sel.value === scenario.correctChoiceId;
+
+  if (correct) {
+    fbTitle.textContent = 'Correct ✔️';
+    fbBody.textContent  = 'Well done.';
+  } else {
+    state.points = Math.max(0, state.points - scenario.penalty);
+    fbTitle.textContent = 'Incorrect ✖️';
+    fbBody.textContent =
+      `${scenario.wrongReason}\n\n...discount ${scenario.penalty} Points.`;
+  }
+
+  state.answered = true;
   updateHeader();
   feedbackModal.classList.add('active');
 }
@@ -873,101 +1341,112 @@ function checkAnswer(){
 function goNext(){
   const sec = SECTIONS[state.sectionIndex];
 
-  if(state.scenarioIndex < sec.scenarios.length - 1){
+  if (state.scenarioIndex < sec.scenarios.length - 1) {
     state.scenarioIndex++;
     loadScenario();
-    return;
-  }
+  } else {
 
-  if(state.sectionIndex < SECTIONS.length - 1){
-    sectionTitle.textContent = `OPD ${sec.title} completed`;
+    sectionTitle.textContent =
+      `OPD ${state.sectionIndex + 1} completed`;
+
     sectionBody.textContent = 'Moving to the next OPD...';
     sectionModal.classList.add('active');
-  } else {
-    showToast('All sections completed ✅');
   }
 }
 
-
-
-  
-overlayCloseBtn.addEventListener('click',()=>setOverlay(false));
-
 [ msgModal, feedbackModal, sectionModal ].forEach(modal => {
   modal.addEventListener('click', (e) => {
-    if(e.target === modal) modal.classList.remove('active');
+    if (e.target === modal) modal.classList.remove('active');
   }, { passive:true });
 });
 
-msgClose.addEventListener('click',()=>msgModal.classList.remove('active'));
-fbContinue.addEventListener('click',()=>{ feedbackModal.classList.remove('active'); goNext(); });
+msgClose.addEventListener('click', () =>
+  msgModal.classList.remove('active'));
 
-sectionContinue.addEventListener('click',()=>{
-  sectionModal.classList.remove('active');
-  state.sectionIndex++;
-  state.scenarioIndex=0;
-  if(state.sectionIndex >= SECTIONS.length){
-    showToast('The End');
-    return;
-  }
-  loadScenario();
-});
-
-submitBtn.addEventListener('click',()=>{
-  if(!questionBox.classList.contains('active')){
-    showToast('You should see the details');
-    return;
-  }
-  if(state.answered){
-    showToast('Click Continue.');
-    return;
-  }
-  checkAnswer();
-});
-
-skipBtn.addEventListener('click',()=>{
-  if(!questionBox.classList.contains('active')){
-    showToast('The procedures must be completed');
-    return;
-  }
-  if(!state.answered){
-    showToast('Choose the answer first');
-    return;
-  }
+fbContinue.addEventListener('click', () => {
+  feedbackModal.classList.remove('active');
   goNext();
 });
 
-fsBtn.addEventListener('click', async()=>{
-  const root=document.documentElement;
-  try{
-    if(!document.fullscreenElement){
+sectionContinue.addEventListener('click', () => {
+  sectionModal.classList.remove('active');
+
+  state.sectionIndex++;
+  state.scenarioIndex = 0;
+
+  if (state.sectionIndex >= SECTIONS.length) {
+
+    finalBody.innerHTML = `
+      ✅ You have completed all scenarios successfully.<br><br>
+      ⭐ Remaining points: <strong>${state.points}</strong> / ${state.total}
+    `;
+
+    finalModal.classList.add('active');
+    return;
+  }
+
+  loadScenario();
+});
+
+submitBtn.addEventListener('click', () => {
+  if (!questionBox.classList.contains('active')) {
+    showToast('You should see the details');
+    return;
+  }
+
+  if (state.answered) {
+    showToast('Click Continue.');
+    return;
+  }
+
+  checkAnswer();
+});
+
+skipBtn.addEventListener('click', () => {
+  if (!questionBox.classList.contains('active')) {
+    showToast('The procedures must be completed');
+    return;
+  }
+
+  if (!state.answered) {
+    showToast('Choose the answer first');
+    return;
+  }
+
+  goNext();
+});
+
+fsBtn.addEventListener('click', async () => {
+  const root = document.documentElement;
+
+  try {
+    if (!document.fullscreenElement) {
       await root.requestFullscreen();
-      fsBtn.textContent='Exit full screen ⤢';
-    }else{
+      fsBtn.textContent = 'Exit full screen ⤢';
+    } else {
       await document.exitFullscreen();
-      fsBtn.textContent='Full screen ⛶';
+      fsBtn.textContent = 'Full screen ⛶';
     }
-  }catch{
+  } catch(err) {
+    console.error(err);
   }
 });
 
 startBtn.addEventListener('click', () => {
   if (state.started) return;
+
   state.started = true;
   startScreen.classList.add('hidden');
   loadScenario();
+
   setTimeout(() => {
-    if (qTitle) qTitle.focus?.();
     scrollQuestionIntoViewSmooth();
   }, 80);
 });
 
 bindViewportResizeHandlers();
 setMediaWrapHeight();
-
-
 </script>
 
 </body>
 </html>
-
