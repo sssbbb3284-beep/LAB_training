@@ -756,29 +756,26 @@ const SECTIONS = [
   {
     title:"Area 2",
     scenarios:[
+
+
+
+
       makeAdvancedScenario({
         id:"2-0",
         baseSrc:"case10basic.jpg",
-
-
-
-         
-  requiredMessageKeys:['label_error'], 
-  requiredImageCount:3,                
-
+        requiredMessageKeys:['label_error'], 
+        requiredImageCount:3,                
         mainHotspots:[
           { type:"text", imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, text:"Click on the computer and the table" },
           { type:"image", imgLeft:62, imgTop:30, imgWidth:20, imgHeight:25, imageSrc:"case10C.jpg" },
           { type:"secondImage", imgLeft:12, imgTop:45, imgWidth:27, imgHeight:20 , imageSrc:"case10T.jpg" }
         ],
-
         secondImage:"case10T.jpg",
         secondHotspots:[
           { type:"text", imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, text:"Click on the tube and the bag" },
           { type:"image", imgLeft:50, imgTop:65, imgWidth:30, imgHeight:30, imageSrc:"case10U.jpg" },
           { type:"text", imgLeft:25, imgTop:65, imgWidth:20, imgHeight:20, text:"There are two labels for diffrent patients " , key:"label_error"}
         ],
-
         question:"What is the correct action?",
         choices:[
           { id:"a", label:"Fixed and apply the labeles at sample" },
@@ -789,32 +786,26 @@ const SECTIONS = [
         penalty:5,
         wrongReason:"Specimen misidentification cannot be corrected."
       }),
-makeAdvancedScenario({
-        id:"2-1",
-        baseSrc:"case10basic.jpg",
 
 
-
-         
-  requiredMessageKeys:[], 
-  requiredImageCount:3,                
-
-        mainHotspots:[
+     makeAdvancedScenario({
+       id:"2-1",
+       baseSrc:"case10basic.jpg",         
+       requiredMessageKeys:[], 
+       requiredImageCount:3,                
+       mainHotspots:[
           { type:"text", imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, text:"Click on the computer and the table" },
           { type:"image", imgLeft:62, imgTop:30, imgWidth:20, imgHeight:25, imageSrc:"case10C.jpg" },
           { type:"secondImage", imgLeft:12, imgTop:45, imgWidth:27, imgHeight:20 , imageSrc:"case11T.jpg" }
         ],
-
-        secondImage:"case11T.jpg",
-        secondHotspots:[
+       secondImage:"case11T.jpg",
+       secondHotspots:[
           { type:"text", imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, text:"Click on the tube " },
           { type:"image", imgLeft:50, imgTop:65, imgWidth:30, imgHeight:30, imageSrc:"case11U.jpg" },
           { type:"text", imgLeft:25, imgTop:65, imgWidth:20, imgHeight:20, text:"A small amount of blood in the tube"}
-          
         ],
-
-        question:"What is the correct action?",
-        choices:[
+       question:"What is the correct action?",
+       choices:[
           { id:"a", label:"Reject and recollect." },
           { id:"b", label:"Accepte The Sample." },
           { id:"c", label:"Running the test with comment about sample quantity." }
@@ -822,7 +813,124 @@ makeAdvancedScenario({
         correctChoiceId:"a",
         penalty:5,
         wrongReason:"Incorrect blood to anticoagulant ratio affect the test result as in our example it invalidates PT/PTT. Make sure the tubes are filled to the line, and this apply to all tubes except red and yellow tube."
+      }),
+
+
+     makeAdvancedScenario({
+        id:"2-2",
+        baseSrc:"case10basic.jpg",         
+        requiredMessageKeys:[], 
+        requiredImageCount:3,                
+        mainHotspots:[
+          { type:"text", imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, text:"Click on the computer and the table" },
+          { type:"image", imgLeft:62, imgTop:30, imgWidth:20, imgHeight:25, imageSrc:"case12C.jpg" },
+          { type:"secondImage", imgLeft:12, imgTop:45, imgWidth:27, imgHeight:20 , imageSrc:"case12T.jpg" }
+        ],
+        secondImage:"case12T.jpg",
+        secondHotspots:[
+          { type:"text", imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, text:"Click on the tube " },
+          { type:"image", imgLeft:50, imgTop:65, imgWidth:30, imgHeight:30, imageSrc:"case12U.jpg" },
+          { type:"text", imgLeft:25, imgTop:65, imgWidth:20, imgHeight:20, text:"Clot sample. " }          
+        ],
+        question:"What is the correct action?",
+        choices:[
+          { id:"a", label:"Reject and report because of clot sample." },
+          { id:"b", label:"Reject and report because of wrong tube." },
+          { id:"c", label:"Accupt sample since is not affect the test." }
+        ],
+        correctChoiceId:"a",
+        penalty:5,
+        wrongReason:"CBC requires anticoagulated whole blood.Anticoagulants inhibit coagulation, and clotting indicate tube malfunction, which means the result wont be correct."
+      }),
+
+
+     makeAdvancedScenario({
+        id:"2-3",
+        baseSrc:"case10basic.jpg",         
+        requiredMessageKeys:[], 
+        requiredImageCount:3,                
+        mainHotspots:[
+          { type:"text", imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, text:"Click on the computer and the table" },
+          { type:"image", imgLeft:62, imgTop:30, imgWidth:20, imgHeight:25, imageSrc:"case13C.jpg" },
+          { type:"secondImage", imgLeft:12, imgTop:45, imgWidth:27, imgHeight:20 , imageSrc:"case13T.jpg" }
+        ],
+        secondImage:"case12T.jpg",
+        secondHotspots:[
+          { type:"text", imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, text:"Click on the tube " },
+          { type:"image", imgLeft:50, imgTop:65, imgWidth:30, imgHeight:30, imageSrc:"case13U.jpg" },
+          { type:"text", imgLeft:25, imgTop:65, imgWidth:20, imgHeight:20, text:"There is no ice. " }          
+        ],
+        question:"What is the correct action?",
+        choices:[
+          { id:"a", label:"Accept the sample." },
+          { id:"b", label:"Send immeditly to chimestry to safe the sample." },
+          { id:"c", label:"Reject and recollect on ice." }
+        ],
+        correctChoiceId:"c",
+        penalty:5,
+        wrongReason:"Ammonia increases rapidly at room temperature."
+      }),
+
+
+     makeAdvancedScenario({
+        id:"2-4",
+        baseSrc:"case10basic.jpg",         
+        requiredMessageKeys:['clarification'], 
+        requiredImageCount:3,                
+        mainHotspots:[
+          { type:"text", imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, text:"Click on the computer and the table" },
+          { type:"image", imgLeft:62, imgTop:30, imgWidth:20, imgHeight:25, imageSrc:"case10C.jpg" },
+          { type:"secondImage", imgLeft:12, imgTop:45, imgWidth:27, imgHeight:20 , imageSrc:"case14T.jpg" }
+        ],
+        secondImage:"case14T.jpg",
+        secondHotspots:[
+          { type:"text", imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, text:"Click on the tube " },
+          { type:"image", imgLeft:50, imgTop:65, imgWidth:30, imgHeight:30, imageSrc:"case14U.jpg" },
+          { type:"text", imgLeft:25, imgTop:65, imgWidth:20, imgHeight:20, text:"There is ice. ", key:"clarification" }          
+        ],
+        question:"What is the correct action?",
+        choices:[
+          { id:"a", label:"Accept the sample." },
+          { id:"b", label:"Reject becouse of wrong test." },
+          { id:"c", label:"Reject and recollect at room temperature." }
+        ],
+        correctChoiceId:"c",
+        penalty:5,
+        wrongReason:"Coagulation samples must be transported at room temperature."
+      }),
+
+
+     makeAdvancedScenario({
+        id:"2-5",
+        baseSrc:"case10basic.jpg",         
+        requiredMessageKeys:['clarification'], 
+        requiredImageCount:3,                
+        mainHotspots:[
+          { type:"text", imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, text:"Click on the computer and the table" },
+          { type:"image", imgLeft:62, imgTop:30, imgWidth:20, imgHeight:25, imageSrc:"case15C.jpg" },
+          { type:"secondImage", imgLeft:12, imgTop:45, imgWidth:27, imgHeight:20 , imageSrc:"case15T.jpg" }
+        ],
+        secondImage:"case15T.jpg",
+        secondHotspots:[
+          { type:"text", imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, text:"Click on the tube " },
+          { type:"image", imgLeft:50, imgTop:65, imgWidth:30, imgHeight:30, imageSrc:"case15U.jpg" },
+          { type:"text", imgLeft:25, imgTop:65, imgWidth:20, imgHeight:20, text:"It is not covered with tin foil. ", key:"clarification" }          
+        ],
+        question:"What is the correct action?",
+        choices:[
+          { id:"a", label:"Accept the sample." },
+          { id:"b", label:"Protect immediately or recollect if exposure prolonged." },
+          { id:"c", label:"Accept with comment." }
+        ],
+        correctChoiceId:"b",
+        penalty:5,
+        wrongReason:"Folate degrades when exposed to light."
       })
+
+
+
+
+
     ]
   }
 ];
