@@ -383,7 +383,6 @@ National Guard Hospital, Medina.
 <header class="appbar">
   <div class="score">
     <span class="pill">Points: <span id="scoreVal" class="val">100</span></span>
-    <span class="pill">Remaining of 100: <span id="remainVal" class="val">100</span></span>
     <span class="pill" id="progressText">OPD 1 — Case 1 of 8</span>
   </div>
 
@@ -961,7 +960,6 @@ const startScreen = document.getElementById('startScreen');
 const startBtn     = document.getElementById('startBtn');
 
 const scoreVal     = document.getElementById('scoreVal');
-const remainVal    = document.getElementById('remainVal');
 const progressText = document.getElementById('progressText');
 
 const mediaWrap       = document.getElementById('mediaWrap');
@@ -1016,7 +1014,6 @@ function getCurrent(){
 
 function updateHeader(){
   scoreVal.textContent  = state.points;
-  remainVal.textContent = state.points;
 
   let s  = state.sectionIndex + 1;
   let sc = state.scenarioIndex + 1;
