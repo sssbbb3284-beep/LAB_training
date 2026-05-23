@@ -352,7 +352,7 @@ National Guard Hospital, Medina.
       <button id="startBtn" type="button" aria-label="start training">start</button>
     </div>
 
-   <div class="start-grid" dir="auto">
+    <div class="start-grid" dir="auto">
       <div class="start-card">
           <p style="margin:0; font-weight:700;">
           <strong></strong><br>
@@ -366,12 +366,11 @@ National Guard Hospital, Medina.
             <p style="margin:0; font-weight:700;">
               <strong>Click on the name to visit the LinkedIn profile:</strong><br><br>
 
-   
               <a href="https://www.linkedin.com/in/sarah-albadrani-9020863b0" target="_blank">
                 Sarah Abdullah AL‑Badrani           
-              </a><br>
+          </a><br>
 
-              <a href="https://www.linkedin.com/in/susan-sultan-7a7480406" target="_blank">
+          <a href="https://www.linkedin.com/in/susan-sultan-7a7480406" target="_blank">
                 Susan Sultan AL‑Husseini
               </a>         
         </p>
@@ -412,9 +411,7 @@ National Guard Hospital, Medina.
                 style="background:#064e3b;border-color:#065f46;color:#d1fae5;"
                 type="button">
           Answer
-        </button>
-
-        <button id="skipBtn" class="btn" type="button">Continue</button>
+        
       </div>
     </div>
   </div>
@@ -861,7 +858,7 @@ const SECTIONS = [
           { type:"image", imgLeft:62, imgTop:30, imgWidth:20, imgHeight:25, imageSrc:"case13C.jpg" },
           { type:"secondImage", imgLeft:12, imgTop:45, imgWidth:27, imgHeight:20 , imageSrc:"case13T.jpg" }
         ],
-        secondImage:"case12T.jpg",
+        secondImage:"case13T.jpg",
         secondHotspots:[
           { type:"text", imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, text:"Click on the tube " },
           { type:"image", imgLeft:50, imgTop:65, imgWidth:30, imgHeight:30, imageSrc:"case13U.jpg" },
@@ -932,11 +929,63 @@ const SECTIONS = [
         correctChoiceId:"b",
         penalty:5,
         wrongReason:"Folate degrades when exposed to light."
-      })
+      }) ,
 
 
+     makeAdvancedScenario({
+        id:"2-6",
+        baseSrc:"case10basic.jpg",         
+        requiredMessageKeys:[], 
+        requiredImageCount:3,                
+        mainHotspots:[
+          { type:"text", imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, text:"Click on the computer and the table" },
+          { type:"image", imgLeft:62, imgTop:30, imgWidth:20, imgHeight:25, imageSrc:"case16C.jpg" },
+          { type:"secondImage", imgLeft:12, imgTop:45, imgWidth:27, imgHeight:20 , imageSrc:"case16T.jpg" }
+        ],
+        secondImage:"case16T.jpg",
+        secondHotspots:[
+          { type:"text", imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, text:"Click on the tube " },
+          { type:"image", imgLeft:50, imgTop:65, imgWidth:30, imgHeight:30, imageSrc:"case16U.jpg" },
+          { type:"text", imgLeft:25, imgTop:65, imgWidth:20, imgHeight:20, text:"It is not covered with tin foil. " }          
+        ],
+        question:"What is the correct action?",
+        choices:[
+          { id:"a", label:"Assess integrity and inform unit; recommend hand delivery." },
+          { id:"b", label:"Reject the sample and throw in biohazerd after report." },
+          { id:"c", label:"Accept and handling like other sample." }
+        ],
+        correctChoiceId:"a",
+        penalty:5,
+        wrongReason:"CSF is sensitive to vibration and pressure."
+      }) ,
 
 
+     makeAdvancedScenario({
+        id:"2-7",
+        baseSrc:"case10basic.jpg",         
+        requiredMessageKeys:[], 
+        requiredImageCount:2,                
+        mainHotspots:[
+          { type:"text", imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, text:"Click on the computer and the table" },
+          { type:"image", imgLeft:62, imgTop:30, imgWidth:20, imgHeight:25, imageSrc:"case15C.jpg" },
+          { type:"secondImage", imgLeft:12, imgTop:45, imgWidth:27, imgHeight:20 , imageSrc:"case17T.jpg" }
+        ],
+        secondImage:"case17T.jpg",
+        secondHotspots:[],
+       
+        question:"What is the correct action?",
+        choices:[
+          { id:"a", label:"Try to save sample and transfer to other tube." },
+          { id:"b", label:"Accept and send it to it section any way." },
+          { id:"c", label:"Reject and follow biohazard protocol." }
+        ],
+        correctChoiceId:"c",
+        penalty:5,
+        wrongReason:"Compromised integrity and safety risk."
+      }) 
+ 
+
+ 
 
     ]
   }
@@ -970,7 +1019,6 @@ const questionBox = document.getElementById('questionBox');
 const qTitle      = document.getElementById('qTitle');
 const optionsEl   = document.getElementById('options');
 const submitBtn   = document.getElementById('submitBtn');
-const skipBtn     = document.getElementById('skipBtn');
 
 const msgModal  = document.getElementById('msgModal');
 const msgTitle  = document.getElementById('msgTitle');
@@ -989,7 +1037,6 @@ const sectionContinue= document.getElementById('sectionContinue');
 
 const toastEl = document.getElementById('toast');
 const fsBtn   = document.getElementById('fsBtn');
-//////////////////////////////
 const finalModal = document.getElementById('finalModal');
 const finalBody  = document.getElementById('finalBody');
 const finalClose = document.getElementById('finalClose');
@@ -1506,25 +1553,12 @@ submitBtn.addEventListener('click', () => {
   }
 
   if (state.answered) {
-    showToast('Click Continue.');
+    feedbackModal.classList.remove('active');
+    goNext();
     return;
   }
 
   checkAnswer();
-});
-
-skipBtn.addEventListener('click', () => {
-  if (!questionBox.classList.contains('active')) {
-    showToast('The procedures must be completed');
-    return;
-  }
-
-  if (!state.answered) {
-    showToast('Choose the answer first');
-    return;
-  }
-
-  goNext();
 });
 
 fsBtn.addEventListener('click', async () => {
