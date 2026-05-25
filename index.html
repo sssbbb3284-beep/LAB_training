@@ -982,7 +982,39 @@ const SECTIONS = [
         correctChoiceId:"c",
         penalty:5,
         wrongReason:"Compromised integrity and safety risk."
+      })  ,
+
+
+     makeAdvancedScenario({
+        id:"2-8",
+        baseSrc:"case10basic.jpg",         
+        requiredMessageKeys:[], 
+        requiredImageCount:2,                
+        mainHotspots:[
+          { type:"text", imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, text:"Click on the computer, the table and the clock on wall" },
+          { type:"image", imgLeft:62, imgTop:30, imgWidth:20, imgHeight:25, imageSrc:"case15C.jpg" },
+          { type:"image", imgLeft:80, imgTop:15, imgWidth:25, imgHeight:15, imageSrc:"case18CL.jpg" },
+          { type:"secondImage", imgLeft:12, imgTop:45, imgWidth:27, imgHeight:20 , imageSrc:"case15T.jpg" }
+        ],
+        secondImage:"case15T.jpg",
+        secondHotspots:[
+          { type:"image", imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, imageSrc:"case18CL.jpg" },
+          { type:"image", imgLeft:50, imgTop:65, imgWidth:30, imgHeight:30, imageSrc:"case15U.jpg" },
+          { type:"text", imgLeft:25, imgTop:65, imgWidth:20, imgHeight:20, text:"It is covered with tin foil. ", key:"clarification" } 
+        ],
+
+       
+        question:"What is the correct action?",
+        choices:[
+          { id:"a", label:"Evaluate stability; reject if exceeded." },
+          { id:"b", label:"Accept not affect." },
+        ],
+        correctChoiceId:"a",
+        penalty:5,
+        wrongReason:"Delay alters many analytes (glucose, potassium, coagulation tests)."
       }) 
+
+
  
 
  
