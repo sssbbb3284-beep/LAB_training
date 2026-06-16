@@ -407,10 +407,12 @@ National Guard Hospital, Medina.
 
       <div class="actions" style="margin-top:12px; display:flex; gap:10px;">
         <button id="submitBtn"
-                class="btn"
-                style="background:#064e3b;border-color:#065f46;color:#d1fae5;"
-                type="button">
-          Answer
+        class="btn"
+        style="background:#064e3b;border-color:#065f46;color:#d1fae5;"
+        type="button">
+  Answer
+</button>
+
         
       </div>
     </div>
@@ -550,11 +552,10 @@ function makeAdvancedScenario({
 const SECTIONS = [
   {
     title:'Area 1',
-    scenarios:[
-         makeScenario({
+     scenarios:[
+    makeScenario({
         id:'1-0', 
         baseSrc:'case1basic.jpg',
-        overlaySrc:'case3S.jpg',
         question:'What is the correct action ?',
         choices:[
           {id:'a', label:'Accept'},
@@ -566,7 +567,10 @@ const SECTIONS = [
         requiredImageCount:1,                 
 
         wrongReason:'Misidentification is a critical patient safety error.',
-        overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
+overlayHotspots:[
+  {imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22, src:'case3S.jpg'}
+],
+
         messageHotspots:[
           {imgLeft:92, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
           {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'The patient said his name was Mohammed and he was 65 years old.', key:'patient_info'}
@@ -577,7 +581,6 @@ const SECTIONS = [
       makeScenario({
         id:'1-1',
         baseSrc:'case1basic.jpg',
-        overlaySrc:'case1S.jpg',
         question:'What is the correct action ?',
         choices:[
           {id:'a', label:'Collect the sample.'},
@@ -589,7 +592,9 @@ const SECTIONS = [
         requiredMessageKeys:['patient_info'], 
         requiredImageCount:1,
         wrongReason:'Some blood tests require specific requirements the patient should meet before collection such as fasting, medication timing, resting, etc. For example: Triglycerides are significantly affected by food intake.',
-        overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
+overlayHotspots:[
+  {imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22, src:'case1S.jpg'}
+],
         messageHotspots:[
           {imgLeft:92, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
           {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'The patient ate two hours ago.',key:'patient_info'}
@@ -599,7 +604,6 @@ const SECTIONS = [
       makeScenario({
         id:'1-2',
         baseSrc:'case2basic.jpg',
-        overlaySrc:'case2S.jpg',
         question:'What is the correct action ?',
         choices:[
           {id:'a', label:'Collect the sample.'},
@@ -611,7 +615,9 @@ const SECTIONS = [
         requiredMessageKeys:['patient_info'], 
         requiredImageCount:1,
         wrongReason:'Extended fasting may alter glucose and other analytes. This falls under meeting testing requirements.',
-        overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
+overlayHotspots:[
+  {imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22, src:'case2S.jpg'}
+],
         messageHotspots:[
           {imgLeft:90.8, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
           {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'The patient ate 18 hours ago.',key:'patient_info'}
@@ -621,7 +627,6 @@ const SECTIONS = [
       makeScenario({
         id:'1-3',
         baseSrc:'case3basic.jpg',
-        overlaySrc:'case3S.jpg',
         question:'What is the correct action ?',
         choices:[
           {id:'a', label:'collect the sample'},
@@ -633,7 +638,9 @@ const SECTIONS = [
         requiredMessageKeys:['patient_info'], 
         requiredImageCount:1,
         wrongReason:'Prolonged and extra tight tourniquet application causes hemoconcentration, intracellular component leaking, and possible hemolysis.',
-        overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
+overlayHotspots:[
+  {imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22, src:'case3S.jpg'}
+],
         messageHotspots:[
           {imgLeft:90.8, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
           {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'Tourniquet applied long',key:'patient_info'}
@@ -642,7 +649,6 @@ const SECTIONS = [
  makeScenario({
         id:'1-4',
         baseSrc:'case4basic.jpg',
-        overlaySrc:'case3S.jpg',
         question:'What is the correct action ?',
         choices:[
           {id:'a', label:'collect the sample since we already disinfected the skin'},
@@ -654,7 +660,9 @@ const SECTIONS = [
         requiredMessageKeys:['patient_info'], 
         requiredImageCount:1,
         wrongReason:'Touching cause contamination and  increases false positives.',
-        overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
+overlayHotspots:[
+  {imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22, src:'case3S.jpg'}
+],
         messageHotspots:[
           {imgLeft:90.8, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
           {imgLeft:11, imgTop:20, imgWidth:35, imgHeight:75, title:'info.', body:'The patient scratched the area after it had been disinfected.',key:'patient_info'}
@@ -664,7 +672,6 @@ const SECTIONS = [
       makeScenario({
         id:'1-5',
         baseSrc:'case5basic.jpg',
-        overlaySrc:'case5S.jpg',
         question:'What is the correct action ?',
         choices:[
           {id:'a', label:'Correct action, we will complete the process.'},
@@ -676,7 +683,9 @@ const SECTIONS = [
         requiredMessageKeys:['bottle_info'], 
         requiredImageCount:1,
         wrongReason:'The tubing of a butterfly set contains a small amount of air.If you fill the anaerobic bottle first, that air may enter it and affect the growth of anaerobic organisms.',
-        overlayHotspots:[{imgLeft:47, imgTop:6, imgWidth:19, imgHeight:22}],
+overlayHotspots:[
+  {imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22, src:'case5S.jpg'}
+],
          messageHotspots:[
           {imgLeft:93, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the blood culture bottles.'},
           {imgLeft:65, imgTop:20, imgWidth:10, imgHeight:15, title:'info.', body:'The aerobic bottle is filled before the anaerobic one by using a butterfly needle.',key:'bottle_info'}
@@ -687,7 +696,6 @@ const SECTIONS = [
       makeScenario({
         id:'1-6',
         baseSrc:'case6basic.jpg',
-        overlaySrc:'case6S.jpg',
         question:'What is the correct action ?',
         choices:[
           {id:'a', label:'Reject if affected. Gently invert the tube 3-5 times.'},
@@ -701,7 +709,9 @@ const SECTIONS = [
         requiredMessageKeys:['tube_info'], 
         requiredImageCount:1,
         wrongReason:'Excessive agitation causes hemolysis.',
-        overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
+overlayHotspots:[
+  {imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22, src:'case6S.jpg'}
+],
         messageHotspots:[
           {imgLeft:93, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and Tubes.'},
           {imgLeft:62, imgTop:20, imgWidth:10, imgHeight:15, title:'info.', body:'The tube was shaken aggressively.',key:'tube_info'}
@@ -712,7 +722,6 @@ const SECTIONS = [
       makeScenario({
         id:'1-7',
         baseSrc:'case7basic.jpg',
-        overlaySrc:'case7S.jpg',
         question:'What is the correct action ?',
         choices:[
           {id:'a', label:'Wrong procedure; need to perform a fresh venipuncture.'},
@@ -725,7 +734,9 @@ const SECTIONS = [
         requiredMessageKeys:['patient_info'], 
         requiredImageCount:1,
         wrongReason:'Fresh venipuncture ensures uncontaminated, reliable results.',
-        overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
+overlayHotspots:[
+  {imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22, src:'case7S.jpg'}
+],
          messageHotspots:[
           {imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
           {imgLeft:60, imgTop:26, imgWidth:30, imgHeight:65, title:'info.', body:'Blood has been drawn from an existing cannula.',key:'patient_info'}
@@ -736,7 +747,6 @@ const SECTIONS = [
       makeScenario({
         id:'1-8',
         baseSrc:'case8basic.jpg',
-        overlaySrc:'case7S.jpg',
         question:'what the correct action ?',
         choices:[
           {id:'a', label:'Send it to the lab.'},
@@ -748,14 +758,55 @@ const SECTIONS = [
         requiredMessageKeys:['patient_info'], 
         requiredImageCount:1,
         wrongReason:'Fresh venipuncture ensures uncontaminated, reliable results.',
-        overlayHotspots:[{imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22}],
+overlayHotspots:[
+  {imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22, src:'case7S.jpg'}
+],
         messageHotspots:[
           {imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, title:'Hint', body:'Click on the computer and the patient.'},
           {imgLeft:60, imgTop:26, imgWidth:30, imgHeight:65, title:'Info', body:'The sample was collected from the same hand holding the IV bag.',key:'patient_info'}
         ]
-      })
+      }),
+     
+makeScenario({
+  id:'1-9',
+  baseSrc:'case9Basic.jpg',
+  question:'What is the correct action ?',
+
+  choices:[
+    {id:'a', label:'Accept action no need to correct anything'},
+    {id:'b', label:'Free collect and fell appropriatly'},
+    {id:'c', label:'Recheck the test and take action depend in it'}
+  ],
+
+  correctChoiceId:'b',
+  penalty:5,
+  wrongReason:'Tranferring from a tube to another alter the test results, for example,EDTA contamination alters chemistry falsely increases potassium level.',
+
+  requiredImageCount:2, 
+
+  overlayHotspots:[
+    {
+      imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22,
+      src:'case7S.jpg'
+    },
+    {
+      imgLeft:15, imgTop:50, imgWidth:25, imgHeight:25,
+      src:'case9T.jpg'
+    }
+  ],
+
+  messageHotspots:[
+    {
+      imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10,
+      title:'hint',
+      body:'Click on the computer and the table.'
+    }
+  ]
+
+})
     ]
   },
+
 
   {
     title:"Area 2",
@@ -982,7 +1033,7 @@ const SECTIONS = [
         correctChoiceId:"c",
         penalty:5,
         wrongReason:"Compromised integrity and safety risk."
-      })  ,
+      }) ,
 
 
      makeAdvancedScenario({
@@ -1013,7 +1064,6 @@ const SECTIONS = [
         penalty:5,
         wrongReason:"Delay alters many analytes (glucose, potassium, coagulation tests)."
       }) 
-
 
  
 
@@ -1319,11 +1369,7 @@ baseEl.className = "base-media";
 mediaWrap.insertBefore(baseEl, overlay);
 
 baseEl.onload = () => positionHotspots();
-  baseEl.className = "base-media";
-
-  mediaWrap.insertBefore(baseEl, overlay);
-
-  baseEl.onload = () => positionHotspots();
+ 
 
   if (scenario.type === "advanced") {
     loadAdvancedHotspots(scenario);
@@ -1345,7 +1391,12 @@ function loadBasicHotspots(scenario){
 
   (scenario.overlayHotspots || []).forEach(h => {
     const hs = makeHotspotByImageCoords(h);
-    hs.addEventListener("click", () => setOverlay(true, scenario.overlayMedia));
+hs.addEventListener("click", () => {
+  setOverlay(true, {
+    type:'image',
+    src:h.src
+  });
+});
     mediaWrap.appendChild(hs);
     _allHotspots.push(hs);
   });
@@ -1466,8 +1517,9 @@ function pushOverlayContent(type, data) {
   overlayStack.push({ type, data });
 
   if (type === "image" || type === "secondImage") {
-    state.openedImageCount++;
-  }
+  state.openedImages.add(data.src);
+  state.openedImageCount = state.openedImages.size;
+}
 
   if (type === "text" && data.key) {
     state.openedMessageKeys.add(data.key);
@@ -1514,14 +1566,19 @@ function checkAnswer(){
   let correct = sel.value === scenario.correctChoiceId;
 
   if (correct) {
-    fbTitle.textContent = 'Correct ✔️';
-    fbBody.textContent  = 'Well done.';
-  } else {
-    state.points = Math.max(0, state.points - scenario.penalty);
-    fbTitle.textContent = 'Incorrect ✖️';
-    fbBody.textContent =
-      `${scenario.wrongReason}\n\n...discount ${scenario.penalty} Points.`;
-  }
+  fbTitle.textContent = 'Correct ✔️';
+
+  fbBody.textContent =
+    `Well done.\n\nExplanation:\n${scenario.wrongReason}`;
+    
+} else {
+  state.points = Math.max(0, state.points - scenario.penalty);
+
+  fbTitle.textContent = 'Incorrect ✖️';
+
+  fbBody.textContent =
+    `${scenario.wrongReason}\n\n...discount ${scenario.penalty} Points.`;
+}
 
   state.answered = true;
   updateHeader();
