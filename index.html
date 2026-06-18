@@ -484,7 +484,7 @@ function makeScenario({
   overlayHotspots = [],
   messageHotspots = [],
   requireOverlay=true,
-  requiredMessageCount=1,
+  requiredMessageCount=0,
 
   requiredMessageKeys = [],
   requiredImageCount = 0,
@@ -512,8 +512,8 @@ function makeScenario({
     }
   };
 }
-
-function makeAdvancedScenario({
+//تم تصميم هذا المشروع من قبل ساره عبدالله عباد البدراني وسوزان سلطان الحسيني عام 2026
+  function makeAdvancedScenario({
   id,
   baseSrc,
   mainHotspots = [],
@@ -769,7 +769,7 @@ overlayHotspots:[
      
 makeScenario({
   id:'1-9',
-  baseSrc:'case9basic.jpg',
+  baseSrc:'case9Basic.jpg',
   question:'What is the correct action ?',
 
   choices:[
@@ -819,16 +819,18 @@ makeScenario({
         id:"2-0",
         baseSrc:"case10basic.jpg",
         requiredMessageKeys:['label_error'], 
-        requiredImageCount:3,                
+requiredImageKeys:['img1'],
+
         mainHotspots:[
           { type:"text", imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, text:"Click on the computer and the table" },
           { type:"image", imgLeft:62, imgTop:30, imgWidth:20, imgHeight:25, imageSrc:"case10C.jpg" },
-          { type:"secondImage", imgLeft:12, imgTop:45, imgWidth:27, imgHeight:20 , imageSrc:"case10T.jpg" }
+          { type:"secondImage", imgLeft:12, imgTop:45, imgWidth:27, imgHeight:20 , imageSrc:"case10T.jpg"
+ }
         ],
         secondImage:"case10T.jpg",
         secondHotspots:[
           { type:"text", imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10, text:"Click on the tube and the bag" },
-          { type:"image", imgLeft:50, imgTop:65, imgWidth:30, imgHeight:30, imageSrc:"case10U.jpg" },
+          { type:"image", imgLeft:50, imgTop:65, imgWidth:30, imgHeight:30, imageSrc:"case10U.jpg",key:"img1" },
           { type:"text", imgLeft:25, imgTop:65, imgWidth:20, imgHeight:20, text:"There are two labels for diffrent patients " , key:"label_error"}
         ],
         question:"What is the correct action?",
@@ -1084,7 +1086,7 @@ const state = {
   answered:false,
   started:false,
 openedMessageKeys:new Set(),
-openedImageCount:0
+openedImageKeys:new Set()
 };
 
 const startScreen = document.getElementById('startScreen');
@@ -1280,7 +1282,11 @@ function setOverlay(open, spec){
     overlay.classList.add('active');
     state.overlayOpenedCount++;
 
-    state.openedImageCount++; 
+state.openedImageCount++;
+
+if (spec.key) {
+  state.openedImageKeys.add(spec.key);
+}
     tryShowQuestion();
   } else {
     overlay.classList.remove('active');
@@ -1307,14 +1313,16 @@ function tryShowQuestion(){
   const gate = scenario.gating || {};
 
   const requiredKeys = gate.requiredMessageKeys || [];
-  const requiredImages = gate.requiredImageCount || 0;
 
   const okMessages =
     requiredKeys.length === 0 ||
     requiredKeys.every(k => state.openedMessageKeys.has(k));
 
-  const okImages =
-    state.openedImageCount >= requiredImages;
+const requiredImageKeys = gate.requiredImageKeys || [];
+
+const okImages =
+  requiredImageKeys.length === 0 ||
+  requiredImageKeys.every(k => state.openedImageKeys.has(k));
 
   let okBasic = true;
   if (scenario.type !== "advanced") {
@@ -1343,8 +1351,8 @@ function loadScenario(){
   state.overlayOpenedCount = 0;
   state.messageOpenedSet.clear();
 state.openedMessageKeys.clear();
+state.openedImageKeys.clear();
 state.openedImageCount = 0;
-
   state.answered = false;
    
   _allHotspots = [];
@@ -1393,9 +1401,10 @@ function loadBasicHotspots(scenario){
     const hs = makeHotspotByImageCoords(h);
 hs.addEventListener("click", () => {
   setOverlay(true, {
-    type:'image',
-    src:h.src
-  });
+  type:'image',
+  src:h.src,
+  key:h.key
+});
 });
     mediaWrap.appendChild(hs);
     _allHotspots.push(hs);
@@ -1412,8 +1421,13 @@ function loadAdvancedHotspots(scenario) {
     }
 
     if (h.type === "image") {
-      hs.addEventListener("click", () => pushOverlayContent("image", { src: h.imageSrc }));
-    }
+  hs.addEventListener("click", () => 
+    pushOverlayContent("image", { 
+      src: h.imageSrc,
+      key: h.key
+    })
+  );
+}
 
     if (h.type === "secondImage") {
       hs.addEventListener("click", () =>
@@ -1516,10 +1530,10 @@ function renderOverlayTop() {
 function pushOverlayContent(type, data) {
   overlayStack.push({ type, data });
 
-  if (type === "image" || type === "secondImage") {
-  state.openedImages.add(data.src);
-  state.openedImageCount = state.openedImages.size;
+if ((type === "image" || type === "secondImage") && data.key) {
+  state.openedImageKeys.add(data.key);
 }
+
 
   if (type === "text" && data.key) {
     state.openedMessageKeys.add(data.key);
@@ -1681,6 +1695,5 @@ startBtn.addEventListener('click', () => {
 bindViewportResizeHandlers();
 setMediaWrapHeight();
 </script>
-
 </body>
 </html>
