@@ -767,44 +767,7 @@ overlayHotspots:[
           {imgLeft:60, imgTop:26, imgWidth:30, imgHeight:65, title:'Info', body:'The sample was collected from the same hand holding the IV bag.',key:'patient_info'}
         ]
       }),
-     
-makeScenario({
-  id:'1-9',
-  baseSrc:'case9Basic.jpg',
-  question:'What is the correct action ?',
-
-  choices:[
-    {id:'a', label:'Accept action no need to correct anything'},
-    {id:'b', label:'Free collect and fell appropriatly'},
-    {id:'c', label:'Recheck the test and take action depend in it'}
-  ],
-
-  correctChoiceId:'b',
-  penalty:5,
-  wrongReason:'Tranferring from a tube to another alter the test results, for example,EDTA contamination alters chemistry falsely increases potassium level.',
-
-  requiredImageCount:2, 
-
-  overlayHotspots:[
-    {
-      imgLeft:48, imgTop:6, imgWidth:19, imgHeight:22,
-      src:'case7S.jpg'
-    },
-    {
-      imgLeft:15, imgTop:50, imgWidth:25, imgHeight:25,
-      src:'case9T.jpg'
-    }
-  ],
-
-  messageHotspots:[
-    {
-      imgLeft:90, imgTop:1, imgWidth:5, imgHeight:10,
-      title:'hint',
-      body:'Click on the computer and the table.'
-    }
-  ]
-
-}),
+    
 
       makeScenario({
         id:'1-10',
